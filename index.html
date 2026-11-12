@@ -128,16 +128,6 @@
               </a>
             </li>
             <li>
-              <a href="#media-hub" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
-                <span aria-hidden="true">🎥</span> Хаб
-              </a>
-            </li>
-            <li>
-              <a href="#community" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
-                <span aria-hidden="true">💬</span> Спільнота
-              </a>
-            </li>
-            <li>
               <a href="#faq" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
                 <span aria-hidden="true">❓</span> FAQ
               </a>
@@ -246,21 +236,6 @@
           <li>
             <a href="#why-us" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
               <span aria-hidden="true">🛡️</span> Чому LootRadar
-            </a>
-          </li>
-          <li>
-            <a href="#media-hub" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
-              <span aria-hidden="true">🎥</span> Відеогід та живий статус
-            </a>
-          </li>
-          <li>
-            <a href="#community" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
-              <span aria-hidden="true">💬</span> Спільнота та рейтинги
-            </a>
-          </li>
-          <li>
-            <a href="#contacts" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
-              <span aria-hidden="true">📍</span> Хаб розробки у Львові
             </a>
           </li>
           <li>
@@ -1025,403 +1000,7 @@
       </section>
 
       <!-- ====================================================================
-           СЕКЦІЯ 5: МЕДІА ТА ІНТЕРАКТИВНИЙ ХАБ (Media & Interactive Hub)
-           ==================================================================== -->
-      <section id="media-hub" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="media-hub-heading">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <header class="mb-10 text-center sm:text-left">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-2">
-              <i class="fa-brands fa-steam text-brand" aria-hidden="true"></i> Медіа-центр Steam
-            </div>
-            <h2 id="media-hub-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white">
-              Медіа & Інтерактивний хаб
-            </h2>
-            <p class="text-sm md:text-base text-muted mt-1">
-              Офіційний трейлер гри Portal 2 від Valve та живий моніторинг сервісів Steam і валютного курсу
-            </p>
-          </header>
-
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- Ліва колонка: HTML5 відеоплеєр з трейлером Portal 2 від Valve (7 колонок на Desktop) -->
-            <div class="lg:col-span-7 flex flex-col gap-4">
-              <!-- Контейнер відеоплеєра з обов'язковим класом aspect-video w-full rounded-xl shadow-lg border border-subtle -->
-              <div class="aspect-video w-full rounded-xl shadow-lg border border-subtle overflow-hidden bg-surface relative group">
-                <video 
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline 
-                  controls 
-                  preload="auto"
-                  poster="assets/images/games/portal2.webp"
-                  class="w-full h-full object-cover"
-                  title="Офіційний трейлер Portal 2 від Valve"
-                >
-                  <source src="assets/video/portal2_trailer.webm" type="video/webm">
-                  <source src="assets/video/portal2_trailer.mp4" type="video/mp4">
-                  <track kind="captions" srclang="uk" label="Українські субтитри (Трейлер Portal 2)" default>
-                  <p class="p-4 text-xs text-slate-400">Ваш браузер не підтримує відео HTML5. Завантажте трейлер напряму.</p>
-                </video>
-              </div>
-
-              <!-- Картка-підказка під відео -->
-              <div class="p-4 sm:p-5 rounded-xl bg-surface border border-subtle flex items-start gap-3.5">
-                <i class="fa-solid fa-gamepad text-brand text-lg mt-0.5 shrink-0" aria-hidden="true"></i>
-                <div class="text-xs sm:text-sm text-muted">
-                  <strong class="text-white block mb-0.5 font-semibold">Офіційний трейлер Portal 2 від Valve:</strong>
-                  Легендарний тайтл із рекордною знижкою <span class="text-brand font-bold">-90% (23 ₴)</span> у каталозі Steam. Переглядайте трейлер, додавайте гру до свого списку бажаного та отримуйте миттєві сповіщення про завершення акції.
-                </div>
-              </div>
-            </div>
-
-            <!-- Права колонка: Інтерактивний віджет статусу Steam та валютного радара (5 колонок) -->
-            <aside class="lg:col-span-5 flex flex-col bg-surface border border-subtle rounded-2xl p-5 sm:p-6 shadow-xl" aria-label="Інтерактивний статус Steam та валютний радар">
-              
-              <!-- Заголовок віджета з індикатором аптайму -->
-              <div class="flex items-center justify-between pb-4 border-b border-subtle mb-5">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-brand animate-pulse" aria-hidden="true"></span>
-                  <h3 class="text-base sm:text-lg font-bold font-headings text-white">Статус серверів Steam</h3>
-                </div>
-                <span class="text-[11px] font-semibold text-brand bg-brand/10 border border-brand/25 px-2.5 py-0.5 rounded-full">
-                  Онлайн 100%
-                </span>
-              </div>
-
-              <!-- Сітка метрик працездатності Steam -->
-              <div class="grid grid-cols-1 min-[340px]:grid-cols-2 gap-3 mb-6">
-                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
-                  <span class="text-[11px] text-slate-400 block mb-0.5">Steam Store API</span>
-                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
-                    16 ms <small class="text-[10px] text-brand font-normal">Норма</small>
-                  </span>
-                </div>
-                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
-                  <span class="text-[11px] text-slate-400 block mb-0.5">Community & Auth</span>
-                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
-                    24 ms <small class="text-[10px] text-brand font-normal">Стабільно</small>
-                  </span>
-                </div>
-                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
-                  <span class="text-[11px] text-slate-400 block mb-0.5">Inventory & Trades</span>
-                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
-                    31 ms <small class="text-[10px] text-brand font-normal">Норма</small>
-                  </span>
-                </div>
-                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
-                  <span class="text-[11px] text-slate-400 block mb-0.5">WebAPI Gateway</span>
-                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
-                    12 ms <small class="text-[10px] text-brand font-normal">Швидко</small>
-                  </span>
-                </div>
-              </div>
-
-              <!-- Блок моніторингу офіційного курсу USD/UAH у Steam -->
-              <div class="p-4 rounded-xl bg-surface-elevated border border-subtle mb-6">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs text-slate-400 font-medium">Курс перерахунку Steam (UAH)</span>
-                  <span class="text-xs text-slate-400 flex items-center gap-1">
-                    <i class="fa-solid fa-clock-rotate-left text-[10px]" aria-hidden="true"></i> оновлено 5 хв тому
-                  </span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-xl sm:text-2xl font-bold font-headings text-white">41.25 ₴</span>
-                  <span class="text-xs font-semibold text-brand flex items-center gap-0.5">
-                    <i class="fa-solid fa-arrow-trend-up text-[10px]" aria-hidden="true"></i> +0.15% (НБУ)
-                  </span>
-                </div>
-                <p class="text-[11px] text-slate-400 mt-1.5">
-                  LootRadar зіставляє прямі гривневі ціни видавців із регіональним конвертером Valve.
-                </p>
-              </div>
-
-              <!-- Додатковий заклик до дії в сайдбарі -->
-              <a 
-                href="#feed" 
-                class="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand/10 hover:bg-brand/20 border border-brand/30 text-brand font-bold text-xs sm:text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-              >
-                <span>Перевірити всі роздачі у стрічці</span>
-                <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
-              </a>
-
-            </aside>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ====================================================================
-           СЕКЦІЯ 6: СПІЛЬНОТА ТА ВІДГУКИ (Community Proof & Testimonials)
-           ==================================================================== -->
-      <section id="community" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="community-heading">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <header class="text-center max-w-3xl mx-auto mb-12">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-3">
-              <i class="fa-solid fa-users text-brand" aria-hidden="true"></i> Голос спільноти
-            </div>
-            <h2 id="community-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white mb-3">
-              Теплові рейтинги та інсайти гравців
-            </h2>
-            <p class="text-sm md:text-base text-muted">
-              Думки перевірених користувачів Steam, аналіз вигідності пропозицій та живі оцінки (Heat Score).
-            </p>
-          </header>
-
-          <!-- Блок 1: Heat Score Рейтинги популярних пропозицій -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12" aria-label="Теплові оцінки пропозицій спільнотою">
-            
-            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
-              <div>
-                <span class="text-xs text-slate-400 block">Cyberpunk 2077</span>
-                <span class="text-base font-bold text-white">Знижка -60%</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
-                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +542°
-                </span>
-                <button 
-                  type="button" 
-                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
-                  aria-label="Підняти рейтинг пропозиції Cyberpunk 2077"
-                  onclick="incrementHeat(this)"
-                >
-                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
-              <div>
-                <span class="text-xs text-slate-400 block">Baldur's Gate 3</span>
-                <span class="text-base font-bold text-white">Історичний -20%</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
-                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +689°
-                </span>
-                <button 
-                  type="button" 
-                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
-                  aria-label="Підняти рейтинг пропозиції Baldur's Gate 3"
-                  onclick="incrementHeat(this)"
-                >
-                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
-              <div>
-                <span class="text-xs text-slate-400 block">S.T.A.L.K.E.R. 2</span>
-                <span class="text-base font-bold text-white">Релізний сейл -15%</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
-                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +415°
-                </span>
-                <button 
-                  type="button" 
-                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
-                  aria-label="Підняти рейтинг пропозиції S.T.A.L.K.E.R. 2"
-                  onclick="incrementHeat(this)"
-                >
-                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Блок 2: Закріплені інсайти від верифікованих гравців (Pinned Insights) -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- Відгук 1 -->
-            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
-              <div>
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-brand to-emerald-300 flex items-center justify-center text-black font-extrabold text-sm shrink-0">
-                    NU
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-                      Олександр <span class="text-xs text-brand font-normal">(Nomad_UA)</span>
-                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
-                    </h3>
-                    <p class="text-xs text-muted">Steam Рівень 58 • 1,240+ год у Steam</p>
-                  </div>
-                </div>
-                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
-                  «LootRadar уберіг мій гаманець під час трьох сезонних розпродажів. Сповіщення в Telegram про новий історичний мінімум приходять миттєво, коли гра дійсно на дні ціни, а не під час фейкових сейлів.»
-                </blockquote>
-              </div>
-              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
-                <span>Заощаджено: <strong class="text-brand">4,280 ₴</strong></span>
-                <time datetime="2026-10-24">24 жовтня 2026</time>
-              </div>
-            </article>
-
-            <!-- Відгук 2 -->
-            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
-              <div>
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-purple-500 to-brand flex items-center justify-center text-white font-extrabold text-sm shrink-0">
-                    VK
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-                      Катерина <span class="text-xs text-brand font-normal">(ValkyrieKyiv)</span>
-                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
-                    </h3>
-                    <p class="text-xs text-muted">Steam Рівень 42 • Steam Deck Verified Hunter</p>
-                  </div>
-                </div>
-                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
-                  «Для мене ключовий фактор — наявність фільтра Steam Deck Verified та перевірка офіційної української локалізації. Тепер вибираю ігри для подорожей за 2 кліки без зайвих сумнівів.»
-                </blockquote>
-              </div>
-              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
-                <span>Заощаджено: <strong class="text-brand">2,650 ₴</strong></span>
-                <time datetime="2026-11-01">1 листопада 2026</time>
-              </div>
-            </article>
-
-            <!-- Відгук 3 -->
-            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
-              <div>
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-brand flex items-center justify-center text-black font-extrabold text-sm shrink-0">
-                    SG
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-                      Максим <span class="text-xs text-brand font-normal">(StalkerGhost)</span>
-                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
-                    </h3>
-                    <p class="text-xs text-muted">Steam Рівень 71 • 2,100+ год у Steam</p>
-                  </div>
-                </div>
-                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
-                  «Найзручніший агрегатор в укрнеті. Синхронізував вішліст зі Steam за 10 секунд — тепер не треба щоранку вручну гортати пошту, бо бот шле тільки реальні знижки від 50%.»
-                </blockquote>
-              </div>
-              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
-                <span>Заощаджено: <strong class="text-brand">5,910 ₴</strong></span>
-                <time datetime="2026-11-04">4 листопада 2026</time>
-              </div>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ====================================================================
-           СЕКЦІЯ 7: ЛОКАЦІЯ ТА КОНТАКТИ (Location & Contacts)
-           ==================================================================== -->
-      <section id="contacts" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="contacts-heading">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <header class="mb-10 text-center sm:text-left">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-2">
-              <i class="fa-solid fa-map-pin text-brand" aria-hidden="true"></i> Штаб-квартира розробки
-            </div>
-            <h2 id="contacts-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white">
-              Локація хабу та контакти спільноти
-            </h2>
-            <p class="text-sm md:text-base text-muted mt-1">
-              Створено в Україні: офіційний осередок команди розробки LootRadar у місті Львів
-            </p>
-          </header>
-
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
-            <!-- Ліва колонка: Інтерактивна Google Карта у семантичному контейнері figure (7 колонок) -->
-            <figure class="lg:col-span-7 w-full h-80 sm:h-96 lg:h-full min-h-[320px] rounded-xl border border-subtle overflow-hidden shadow-lg relative m-0">
-              <iframe 
-                title="Розташування осередку LootRadar у Національному університеті Львівська політехніка"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2573.1091599557457!2d24.01211727689146!3d49.835741731118184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add7b76f53a47%3A0xb363404c00000000!2sLviv%20Polytechnic%20National%20University!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua" 
-                class="w-full h-full border-0" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade" 
-                allowfullscreen
-              ></iframe>
-              <figcaption class="sr-only">
-                Інтерактивна карта розташування хабу розробників LootRadar у Львові
-              </figcaption>
-            </figure>
-
-            <!-- Права колонка: Контактні дані та адреса хабу (5 колонок) -->
-            <address class="lg:col-span-5 not-italic flex flex-col justify-between bg-surface border border-subtle rounded-2xl p-6 sm:p-8 shadow-xl">
-              
-              <div class="space-y-6">
-                <div>
-                  <span class="text-xs font-bold uppercase tracking-wider text-brand mb-1 block">Офіційна локація</span>
-                  <h3 class="text-xl font-bold font-headings text-white mb-2">LootRadar Community Hub</h3>
-                  <p class="text-sm text-muted leading-relaxed">
-                    Національний університет «Львівська політехніка»,<br>
-                    вул. Степана Бандери, 12, м. Львів, 79013, Україна
-                  </p>
-                </div>
-
-                <div class="space-y-3 pt-4 border-t border-subtle">
-                  <div class="flex items-center gap-3 text-sm text-muted">
-                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
-                      <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                    </div>
-                    <div>
-                      <span class="text-xs text-slate-400 block">Електронна пошта підтримки</span>
-                      <a href="mailto:support@lootradar.games" class="text-white hover:text-brand font-semibold transition-colors">support@lootradar.games</a>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-3 text-sm text-muted">
-                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
-                      <i class="fa-brands fa-telegram" aria-hidden="true"></i>
-                    </div>
-                    <div>
-                      <span class="text-xs text-slate-400 block">Telegram-канал миттєвих сповіщень</span>
-                      <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand font-semibold transition-colors">@lootradar_ua</a>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-3 text-sm text-muted">
-                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
-                      <i class="fa-brands fa-discord" aria-hidden="true"></i>
-                    </div>
-                    <div>
-                      <span class="text-xs text-slate-400 block">Геймерський Discord сервер</span>
-                      <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand font-semibold transition-colors">discord.gg/lootradar</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Графік роботи серверів та підтримки -->
-              <div class="mt-8 pt-4 border-t border-subtle text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                <span class="flex items-center gap-1.5 text-slate-300">
-                  <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
-                  Автоматичний трекінг: 24/7/365
-                </span>
-                <span>Техпідтримка: Пн-Пт 10:00–19:00</span>
-              </div>
-
-            </address>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ====================================================================
-           СЕКЦІЯ 8: ЧАСТІ ЗАПИТАННЯ (FAQ Section — Accessible Accordion)
+           СЕКЦІЯ 5: ЧАСТІ ЗАПИТАННЯ (FAQ Section — Accessible Accordion)
            ==================================================================== -->
       <section id="faq" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="faq-heading">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1537,7 +1116,7 @@
       </section>
 
       <!-- ====================================================================
-           СЕКЦІЯ 9: ФІНАЛЬНИЙ БАНЕР І ЛІДОГЕНЕРАЦІЯ (Final CTA Banner)
+           СЕКЦІЯ 6: ФІНАЛЬНИЙ БАНЕР І ЛІДОГЕНЕРАЦІЯ (Final CTA Banner)
            ==================================================================== -->
       <section id="cta-banner" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="cta-banner-heading">
         <div class="relative max-w-5xl mx-auto rounded-3xl bg-gradient-to-b from-[#1a1d24] to-[#12151b] border border-brand/40 p-8 sm:p-12 lg:p-14 text-center overflow-hidden shadow-glow-primary">
@@ -1647,15 +1226,15 @@
             </ul>
           </nav>
 
-          <!-- Колонка 3: Спільнота та медіа -->
-          <nav aria-label="Спільнота та ресурси">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Спільнота & Хаб</h3>
+          <!-- Колонка 3: Платформа та ресурси -->
+          <nav aria-label="Платформа та ресурси">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Платформа & Ресурси</h3>
             <ul class="space-y-2.5 text-xs text-muted">
               <li>
-                <a href="#media-hub" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Відеогід з покупок</a>
+                <a href="#feed" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Стрічка акцій Steam</a>
               </li>
               <li>
-                <a href="#community" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Обговорення та рейтинги</a>
+                <a href="account.html#wishlist" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Мій Steam Wishlist</a>
               </li>
               <li>
                 <a href="#why-us" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Чому ми (Steam API трекінг)</a>
@@ -1723,8 +1302,6 @@
             <a href="#faq" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Конфіденційність</a>
             <span class="text-slate-700 select-none" aria-hidden="true">•</span>
             <a href="#faq" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Умови використання</a>
-            <span class="text-slate-700 select-none" aria-hidden="true">•</span>
-            <a href="#contacts" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Контакти</a>
           </nav>
 
         </div>
@@ -2200,23 +1777,7 @@
       window.addEventListener('lootradar:auth_changed', syncAuthStateUI);
     });
 
-    // Інтерактивне підняття Heat-Score спільноти
-    function incrementHeat(btn) {
-      const parent = btn.parentElement;
-      const scoreEl = parent.querySelector('span');
-      if (scoreEl) {
-        let currentText = scoreEl.textContent.trim();
-        let match = currentText.match(/\+(\d+)/);
-        if (match) {
-          let score = parseInt(match[1], 10) + 1;
-          scoreEl.innerHTML = '<i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +' + score + '°';
-          btn.classList.add('bg-brand', 'text-black');
-          btn.disabled = true;
-        }
-      }
-    }
-
-        // Обробка форми лідогенерації
+    // Обробка форми лідогенерації
     const leadForm = document.getElementById('lead-capture-form');
     if (leadForm) {
       leadForm.addEventListener('submit', function(e) {
