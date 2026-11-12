@@ -1,0 +1,6 @@
+# LootRadar robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://calm-starship-5d6e7e.netlify.app/sitemap.xml
+

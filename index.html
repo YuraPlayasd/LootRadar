@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Метадані та SEO -->
+  <title>LootRadar — Твій радар чесних знижок та роздач у Steam</title>
+  <meta name="description" content="LootRadar — українська геймерська платформа-агрегатор знижок, історичних мінімумів та 100% безкоштовних роздач у Steam з аналітикою цін та живим ком'юніті.">
+  
+  <!-- Шрифти: Outfit та Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Іконки: Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></noscript>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            headings: ['Outfit', 'Inter', 'sans-serif'],
+            body: ['Inter', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#00c853',
+              hover: '#00e676',
+              active: '#009624',
+            },
+            accent: {
+              DEFAULT: '#00e676',
+              subtle: 'rgba(0, 200, 83, 0.12)',
+            },
+            surface: {
+              DEFAULT: '#1a1d24',
+              hover: '#242832',
+              elevated: '#12151b',
+              dark: '#0d0f12',
+            },
+            border: {
+              subtle: '#2a2e39',
+              light: '#697180',
+            },
+            muted: '#b8bec9',
+          },
+          boxShadow: {
+            'glow-primary': '0 0 16px rgba(0, 200, 83, 0.35)',
+            'glow-accent': '0 0 20px rgba(0, 230, 118, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-surface-dark text-white font-body text-base leading-normal antialiased min-h-screen overflow-x-hidden">
+
+  <!-- Допоміжне посилання для переходу до основного контенту (WCAG Skip Link) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[1000] focus:px-5 focus:py-3 focus:bg-brand focus:text-black focus:font-bold focus:rounded-lg focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-[#0d0f12]">
+    Перейти до основного вмісту
+  </a>
+
+  <div id="page-wrapper" class="min-h-screen flex flex-col w-full">
+
+    <!-- ======================================================================
+         1. ШАПКА САЙТУ (Header)
+         ====================================================================== -->
+    <header class="sticky top-0 z-50 bg-surface-dark/95 backdrop-blur-md border-b border-subtle transition-all">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4 flex-nowrap">
+        
+        <!-- Логотип проекту -->
+        <a href="index.html" class="flex items-center gap-2.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-lg group transition-transform duration-200 hover:scale-105" aria-label="LootRadar — Головна сторінка агрегатора знижок">
+          <img 
+            src="assets/images/logo.svg" 
+            alt="LootRadar Логотип" 
+            class="w-8 h-8 sm:w-9 sm:h-9 object-contain" 
+            width="36" 
+            height="36"
+            aria-hidden="true"
+          >
+          <span class="font-headings font-bold text-white text-lg sm:text-xl tracking-tight">Loot<span class="text-brand">Radar</span></span>
+        </a>
+
+        <!-- Форма швидкого глобального пошуку -->
+        <form class="hidden md:flex items-center relative w-40 lg:w-52 xl:w-64 shrink-1 transition-all" role="search">
+          <label for="global-search" class="sr-only">Пошук гри чи знижки на платформі LootRadar</label>
+          <div class="relative w-full flex items-center">
+            <img 
+              src="assets/icons/icon_search.svg" 
+              alt="" 
+              class="absolute left-3 w-4 h-4 text-slate-400 pointer-events-none" 
+              width="16" 
+              height="16" 
+              aria-hidden="true"
+            >
+            <input 
+              type="search" 
+              id="global-search" 
+              name="query" 
+              placeholder="Пошук гри..." 
+              autocomplete="off"
+              class="w-full h-10 bg-surface text-white text-xs sm:text-sm placeholder-slate-400 pl-9 pr-3 rounded-lg border border-subtle focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all"
+            >
+          </div>
+        </form>
+
+        <!-- Головне меню навігації (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2 shrink-0" aria-label="Головна навігація сайту">
+          <ul class="flex items-center gap-0.5 xl:gap-1 text-xs xl:text-sm font-medium">
+            <li>
+              <a href="#deals" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">🔥</span> Знижки
+              </a>
+            </li>
+            <li>
+              <a href="#feed" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">⚡</span> Стрічка
+              </a>
+            </li>
+            <li>
+              <a href="#why-us" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">🛡️</span> Чому ми
+              </a>
+            </li>
+            <li>
+              <a href="#media-hub" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">🎥</span> Хаб
+              </a>
+            </li>
+            <li>
+              <a href="#community" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">💬</span> Спільнота
+              </a>
+            </li>
+            <li>
+              <a href="#faq" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">❓</span> FAQ
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Панель дій користувача -->
+        <menu class="flex items-center gap-1.5 sm:gap-2.5 shrink-0 m-0 p-0 list-none" aria-label="Панель дій користувача">
+          <!-- Лічильник Списку бажаного -->
+          <li>
+            <a 
+              href="account.html#wishlist" 
+              class="relative flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:scale-105 active:scale-95 hover:shadow-md hover:shadow-brand/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-all duration-200" 
+              aria-label="Мій список бажаного Steam"
+            >
+              <img 
+                src="assets/icons/icon_heart.svg" 
+                alt="" 
+                class="w-4 h-4 sm:w-5 sm:h-5" 
+                width="20" 
+                height="20" 
+                aria-hidden="true"
+              >
+              <span id="header-wishlist-count" class="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-[16px] px-1 text-[10px] font-bold text-black bg-brand rounded-full ring-2 ring-surface-dark" aria-hidden="true">3</span>
+            </a>
+          </li>
+
+          <!-- Сповіщення -->
+          <li>
+            <button 
+              type="button" 
+              class="relative flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:scale-105 active:scale-95 hover:shadow-md hover:shadow-brand/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-all duration-200" 
+              aria-label="Сповіщення про нові знижки" 
+              aria-haspopup="dialog" 
+              aria-expanded="false"
+            >
+              <img 
+                src="assets/icons/icon_bell.svg" 
+                alt="" 
+                class="w-4 h-4 sm:w-5 sm:h-5" 
+                width="20" 
+                height="20" 
+                aria-hidden="true"
+              >
+              <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand ring-2 ring-surface-dark" aria-hidden="true"></span>
+            </button>
+          </li>
+
+          <!-- Кнопка авторизації: Увійти через Steam (Secondary CTA) -->
+          <li class="hidden sm:block" id="header-auth-container">
+            <button 
+              type="button" 
+              onclick="openSteamLoginModal()"
+              class="inline-flex items-center justify-center h-10 px-3 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-surface hover:bg-surface-hover border border-brand/50 hover:border-brand hover:scale-105 active:scale-95 hover:shadow-glow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f12] rounded-lg transition-all duration-200 shadow-sm gap-2" 
+              aria-label="Увійти в акаунт через Steam OpenID"
+            >
+              <i class="fa-brands fa-steam text-brand text-sm sm:text-base" aria-hidden="true"></i>
+              <span>Увійти через Steam</span>
+            </button>
+          </li>
+
+          <!-- Кнопка мобільного меню -->
+          <li class="lg:hidden">
+            <button 
+              type="button" 
+              id="mobile-menu-btn"
+              class="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:scale-105 active:scale-95 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-all duration-200" 
+              aria-label="Відкрити головне меню навігації" 
+              aria-expanded="false"
+              onclick="const nav = document.getElementById('mobile-nav'); const expanded = nav.classList.toggle('hidden'); this.setAttribute('aria-expanded', !expanded);"
+            >
+              <i class="fa-solid fa-bars text-base" aria-hidden="true"></i>
+            </button>
+          </li>
+        </menu>
+
+      </div>
+
+      <!-- Мобільне меню навігації (Mobile Drawer), розташоване під баром -->
+      <nav id="mobile-nav" class="hidden w-full lg:hidden border-t border-subtle bg-surface-dark/98 backdrop-blur-md px-4 py-3 shadow-2xl" aria-label="Мобільна навігація">
+        <!-- Пошук у мобільному меню -->
+        <form class="md:hidden mb-3" role="search">
+          <label for="mobile-global-search" class="sr-only">Пошук гри на платформі LootRadar</label>
+          <div class="relative flex items-center">
+            <img src="assets/icons/icon_search.svg" alt="" class="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" width="16" height="16" aria-hidden="true">
+            <input type="search" id="mobile-global-search" name="query" placeholder="Пошук гри, знижки, жанру..." class="w-full min-h-[44px] bg-surface text-white text-sm placeholder-slate-400 pl-10 pr-4 py-2.5 rounded-lg border border-subtle focus:outline-none focus:border-brand">
+          </div>
+        </form>
+        <ul class="flex flex-col gap-1 text-sm font-medium">
+          <li>
+            <a href="account.html#wishlist" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-brand bg-brand/10 border border-brand/30 flex items-center gap-2.5 transition-colors font-bold">
+              <span aria-hidden="true">❤️</span> Мій Steam Wishlist
+            </a>
+          </li>
+          <li>
+            <a href="#deals" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">🔥</span> Гарячі знижки
+            </a>
+          </li>
+          <li>
+            <a href="#feed" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">⚡</span> Стрічка акцій Steam
+            </a>
+          </li>
+          <li>
+            <a href="#why-us" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">🛡️</span> Чому LootRadar
+            </a>
+          </li>
+          <li>
+            <a href="#media-hub" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">🎥</span> Відеогід та живий статус
+            </a>
+          </li>
+          <li>
+            <a href="#community" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">💬</span> Спільнота та рейтинги
+            </a>
+          </li>
+          <li>
+            <a href="#contacts" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">📍</span> Хаб розробки у Львові
+            </a>
+          </li>
+          <li>
+            <a href="#faq" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">❓</span> Часті запитання (FAQ)
+            </a>
+          </li>
+          <li class="pt-2 sm:hidden">
+            <button 
+              type="button" 
+              onclick="openSteamLoginModal(); document.getElementById('mobile-nav').classList.add('hidden');" 
+              class="w-full min-h-[44px] inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-black bg-brand hover:bg-brand-hover active:bg-brand-active hover:shadow-glow-primary rounded-lg transition-all duration-200 shadow-sm gap-2"
+              aria-label="Увійти в акаунт через Steam"
+            >
+              <i class="fa-brands fa-steam text-base" aria-hidden="true"></i>
+              Увійти через Steam
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ======================================================================
+         2. ОСНОВНИЙ ВМІСТ (Main Content)
+         ====================================================================== -->
+    <main id="main-content" class="flex-1 w-full" tabindex="-1">
+
+      <!-- ====================================================================
+           СЕКЦІЯ 1: ГОЛОВНИЙ БАНЕР (Hero Section)
+           ==================================================================== -->
+      <section id="hero" class="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8" aria-labelledby="hero-main-title">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-surface-elevated border border-subtle p-6 sm:p-10 lg:p-14 shadow-2xl relative overflow-hidden">
+          
+          <!-- Відео / Зображення як повноцінний живий задній фон Hero-секції -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+            <video 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              poster="assets/images/hero.bg.webp"
+              class="w-full h-full object-cover object-center sm:object-[70%_center] lg:object-right opacity-80"
+            >
+              <source src="assets/video/video_content.webm" type="video/webm">
+              <source src="assets/video/video_content.mp4" type="video/mp4">
+              <!-- Fallback картинка фону, якщо браузер не підтримує відео -->
+              <img 
+                src="assets/images/hero.bg.webp" 
+                alt="" 
+                class="w-full h-full object-cover object-center sm:object-[70%_center] lg:object-right"
+              >
+            </video>
+            
+            <!-- Багаторівневий градієнтний оверлей: 60% простору зліва залишається ідеально темним для бездоганного зчитування H1, підзаголовка та CTA -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#12151b] via-[#12151b]/90 md:via-[#12151b]/70 lg:via-[#12151b]/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#12151b] via-transparent to-[#12151b]/40"></div>
+          </div>
+
+          <!-- Текстовий зміст та CTA (розташовується на 60% лівого простору перед радаром) -->
+          <div class="relative z-10 max-w-2xl lg:max-w-3xl flex flex-col items-start text-left">
+            
+            <!-- Бейдж верифікації даних -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 border border-brand/30 text-xs font-bold text-brand mb-5 backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-brand animate-pulse" aria-hidden="true"></span>
+              Верифіковані ціни через Steam Web API
+            </div>
+
+            <!-- Головний домінантний заголовок сторінки (H1) -->
+            <h1 id="hero-main-title" class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold font-headings text-white leading-[1.12] tracking-tight mb-5">
+              Твій радар чесних знижок та роздач у Steam
+            </h1>
+
+            <!-- Підзаголовок цінності продукту -->
+            <p class="text-base sm:text-lg lg:text-xl text-muted leading-relaxed mb-8 max-w-xl">
+              Повний контроль цін, розумні сповіщення та перевірена 5-річна динаміка вартості. Захисти свій гаманець від штучних націнок під час розпродажів та хапай 100% безкоштовні тайтли першим.
+            </p>
+
+            <!-- Помітний блок кнопок дій (Dual CTA Buttons) -->
+            <div class="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 mb-10" role="group" aria-label="Швидкі дії">
+              <a 
+                href="#deals" 
+                class="min-h-[50px] inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 hover:shadow-glow-primary text-black font-extrabold text-base rounded-xl transition-all duration-200 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
+              >
+                <span>Переглянути знижки</span>
+                <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+              </a>
+              <button 
+                type="button" 
+                onclick="handleHeroSteamClick()" 
+                class="min-h-[50px] inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-surface/90 backdrop-blur-md border border-subtle hover:border-brand hover:bg-brand/10 hover:scale-105 active:scale-95 text-white hover:text-brand font-bold text-base rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" 
+                aria-label="Синхронізувати список бажаного Steam Wishlist"
+              >
+                <i class="fa-brands fa-steam text-lg text-brand" aria-hidden="true"></i>
+                <span>Синхронізувати Steam</span>
+              </button>
+            </div>
+
+            <!-- Живі метрики платформи -->
+            <ul class="flex flex-wrap items-center gap-2.5 sm:gap-3" aria-label="Статистика платформи LootRadar у реальному часі">
+              <li class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/90 backdrop-blur-md border border-subtle text-xs sm:text-sm">
+                <span class="font-extrabold text-brand tracking-wide text-sm sm:text-base">3 420+</span>
+                <span class="text-slate-300">активних знижок</span>
+              </li>
+              <li class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/90 backdrop-blur-sm border border-subtle text-xs sm:text-sm">
+                <span class="font-extrabold text-brand tracking-wide text-sm sm:text-base">124</span>
+                <span class="text-slate-300">історичні мінімуми</span>
+              </li>
+              <li class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/90 backdrop-blur-sm border border-brand/40 text-xs sm:text-sm shadow-sm shadow-brand/10">
+                <span class="w-2 h-2 rounded-full bg-brand animate-ping" aria-hidden="true"></span>
+                <span class="font-extrabold text-brand tracking-wide text-sm sm:text-base">2</span>
+                <span class="text-white font-medium">безкоштовні роздачі</span>
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 2: ПАНЕЛЬ ШВИДКИХ ФІЛЬТРІВ (Filter Bar)
+           ==================================================================== -->
+      <section id="filter-bar" class="relative lg:sticky lg:top-16 z-40 bg-surface-elevated/95 backdrop-blur-md border-y border-subtle shadow-md py-3 transition-all" aria-labelledby="filter-bar-heading">
+        <h2 id="filter-bar-heading" class="sr-only">Фільтри та параметри каталогу</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <form id="catalog-filter-form" action="#deals" method="get" class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+            
+            <!-- Жанрові пігулки та швидкі перемикачі (Genre Pills & Toggles) -->
+            <fieldset class="w-full lg:w-auto flex items-center overflow-x-auto no-scrollbar bg-surface p-1 rounded-xl border border-subtle gap-1 shrink-0">
+              <legend class="sr-only">Швидка фільтрація за типом пропозиції</legend>
+              <label class="inline-flex cursor-pointer text-center shrink-0">
+                <input type="radio" name="filter_type" value="all" class="peer sr-only" checked>
+                <span class="min-h-[38px] px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 peer-checked:bg-brand peer-checked:text-black peer-checked:font-bold select-none transition-all flex items-center gap-1.5 cursor-pointer">
+                  Всі ігри
+                </span>
+              </label>
+              <label class="inline-flex cursor-pointer text-center shrink-0">
+                <input type="radio" name="filter_type" value="historical-low" class="peer sr-only">
+                <span class="min-h-[38px] px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 peer-checked:bg-brand peer-checked:text-black peer-checked:font-bold select-none transition-all flex items-center gap-1.5 cursor-pointer">
+                  <i class="fa-solid fa-chart-line text-xs" aria-hidden="true"></i> Historical Low
+                </span>
+              </label>
+              <label class="inline-flex cursor-pointer text-center shrink-0">
+                <input type="radio" name="filter_type" value="free" class="peer sr-only">
+                <span class="min-h-[38px] px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 peer-checked:bg-brand peer-checked:text-black peer-checked:font-bold select-none transition-all flex items-center gap-1.5 cursor-pointer">
+                  <i class="fa-solid fa-gift text-xs" aria-hidden="true"></i> 100% Free
+                </span>
+              </label>
+              <label class="inline-flex cursor-pointer text-center shrink-0">
+                <input type="radio" name="filter_type" value="steam-deck" class="peer sr-only">
+                <span class="min-h-[38px] px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 peer-checked:bg-brand peer-checked:text-black peer-checked:font-bold select-none transition-all flex items-center gap-1.5 cursor-pointer">
+                  <i class="fa-solid fa-gamepad text-xs" aria-hidden="true"></i> Steam Deck Verified
+                </span>
+              </label>
+            </fieldset>
+
+            <!-- Жанрові селектори та сортування -->
+            <fieldset class="w-full lg:w-auto grid grid-cols-2 sm:grid-cols-3 gap-2 border-0 m-0 p-0">
+              <legend class="sr-only">Параметри вибірки та сортування</legend>
+              
+              <label for="filter-genre" class="sr-only">Жанр гри</label>
+              <select id="filter-genre" name="genre" class="w-full min-h-[40px] bg-surface border border-subtle text-white text-xs sm:text-sm rounded-lg px-3 py-2 outline-none cursor-pointer focus:border-brand focus:ring-1 focus:ring-brand">
+                <option value="">Усі жанри</option>
+                <option value="rpg">RPG / Рольові</option>
+                <option value="action">Action / Екшн</option>
+                <option value="strategy">Strategy / Стратегії</option>
+                <option value="indie">Indie / Інді</option>
+                <option value="roguelike">Roguelike / Роґлайк</option>
+              </select>
+
+              <label for="filter-sort" class="sr-only">Сортувати пропозиції</label>
+              <select id="filter-sort" name="sort" class="w-full min-h-[40px] bg-surface border border-subtle text-white text-xs sm:text-sm rounded-lg px-3 py-2 outline-none cursor-pointer focus:border-brand focus:ring-1 focus:ring-brand">
+                <option value="discount">За розміром знижки (%)</option>
+                <option value="price-asc">Ціна: від найнижчої</option>
+                <option value="rating">За рейтингом Steam</option>
+                <option value="recent">Найновіші знижки</option>
+              </select>
+
+              <!-- Повзунок максимальної ціни (Price Range) -->
+              <div class="col-span-2 sm:col-span-1 flex items-center justify-between gap-2.5 px-3 py-1 bg-surface rounded-lg border border-subtle min-h-[40px]">
+                <label for="price-slider" class="text-xs text-slate-300 shrink-0">До:</label>
+                <output for="price-slider" id="price-output" class="text-xs font-bold text-brand shrink-0" aria-live="polite">800 ₴</output>
+                <input 
+                  type="range" 
+                  id="price-slider" 
+                  name="max_price" 
+                  min="50" 
+                  max="2000" 
+                  step="50" 
+                  value="800" 
+                  class="accent-brand cursor-pointer w-full h-1.5 bg-surface-dark rounded-lg"
+                  oninput="document.getElementById('price-output').value = this.value + ' ₴'"
+                  aria-label="Максимальна ціна у гривнях"
+                >
+              </div>
+            </fieldset>
+
+          </form>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 3: ГАРЯЧІ ЗНИЖКИ ТА ПОСЛУГИ (Deals & Services)
+           ==================================================================== -->
+      <section id="deals" class="scroll-mt-36 py-12 lg:py-16 border-b border-subtle" aria-labelledby="deals-heading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-2">
+                <i class="fa-solid fa-fire text-brand" aria-hidden="true"></i> Радар дня
+              </div>
+              <h2 id="deals-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white">Верифіковані знижки каталогу</h2>
+              <p class="text-sm md:text-base text-muted mt-1.5">Перевірені історичні мінімуми без штучних націнок за даними Steam API</p>
+            </div>
+            <span class="text-xs text-slate-400 self-start sm:self-auto flex items-center gap-1.5 bg-surface px-3 py-1.5 rounded-lg border border-subtle">
+              <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+              Оновлено 5 хв тому
+            </span>
+          </header>
+
+          <!-- Каталог карток (Responsive Catalog Grid: Cyberpunk 2077, S.T.A.L.K.E.R. 2, Baldur's Gate 3, Hades II) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Картка 1: Cyberpunk 2077 -->
+            <article class="group relative flex flex-col bg-surface border border-subtle hover:border-brand/60 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand/10" aria-labelledby="card-title-cyberpunk">
+              
+              <!-- Кнопка додавання до Wishlist -->
+              <button 
+                type="button" 
+                onclick="toggleCardWishlist(event, 'cyberpunk')" 
+                data-wishlist-id="cyberpunk"
+                class="wishlist-btn absolute top-2.5 left-2.5 z-10 w-8 h-8 rounded-lg bg-surface-dark/80 hover:bg-surface-dark text-slate-300 hover:text-brand border border-subtle flex items-center justify-center transition-all shadow" 
+                title="Додати до списку бажаного"
+                aria-label="Додати Cyberpunk 2077 до списку бажаного"
+              >
+                <i class="fa-solid fa-heart text-xs" aria-hidden="true"></i>
+              </button>
+
+              <a href="https://store.steampowered.com/app/1091500/Cyberpunk_2077/" target="_blank" rel="noopener noreferrer" class="block overflow-hidden aspect-[16/9] relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" tabindex="-1" aria-hidden="true">
+                <picture>
+                  <source srcset="assets/images/games/cyberpunk.webp" type="image/webp">
+                  <img 
+                    src="assets/images/games/cyberpunk.jpg" 
+                    alt="Постер гри Cyberpunk 2077 у неоновому місті Найт-Сіті" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="280"
+                    height="158"
+                    loading="lazy"
+                  >
+                </picture>
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px] font-bold bg-surface-dark/85 text-brand border border-brand/30 backdrop-blur-sm">
+                  Steam Deck: Playable
+                </span>
+              </a>
+              
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-2.5">
+                <mark class="inline-flex items-center gap-1.5 self-start px-2 py-0.5 rounded text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <img src="assets/icons/icon_historical_low.svg" alt="" class="w-3.5 h-3.5" width="14" height="14" aria-hidden="true">
+                  -60% Історичний мінімум
+                </mark>
+
+                <h3 id="card-title-cyberpunk" class="text-base font-bold text-white group-hover:text-brand transition-colors leading-snug">
+                  <a href="https://store.steampowered.com/app/1091500/Cyberpunk_2077/" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded">
+                    Cyberpunk 2077
+                  </a>
+                </h3>
+
+                <p class="text-xs text-muted flex items-center justify-between">
+                  <span>CD PROJEKT RED</span>
+                  <span class="text-brand font-medium">★ 87% позитивних</span>
+                </p>
+                
+                <!-- Порівняння цін -->
+                <div class="flex items-baseline justify-between pt-2 border-t border-subtle/80 mt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-extrabold bg-brand/15 text-brand border border-brand/30">-60%</span>
+                    <del class="text-xs text-slate-400 line-through">1,199 ₴</del>
+                  </div>
+                  <strong class="text-lg font-bold text-white">479 ₴</strong>
+                </div>
+
+                <!-- Кнопка переходу в магазин Steam -->
+                <a 
+                  href="https://store.steampowered.com/app/1091500/Cyberpunk_2077/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="mt-2 w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-primary text-black font-bold text-sm rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1d24]"
+                  aria-label="Купити Cyberpunk 2077 в Steam за 479 гривень зі знижкою 60% (відкриється в новій вкладці)"
+                >
+                  <i class="fa-solid fa-cart-shopping text-sm" aria-hidden="true"></i>
+                  <span>В магазин Steam</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Картка 2: S.T.A.L.K.E.R. 2: Heart of Chornobyl -->
+            <article class="group relative flex flex-col bg-surface border border-subtle hover:border-brand/60 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand/10" aria-labelledby="card-title-stalker2">
+              
+              <!-- Кнопка додавання до Wishlist -->
+              <button 
+                type="button" 
+                onclick="toggleCardWishlist(event, 'stalker2')" 
+                data-wishlist-id="stalker2"
+                class="wishlist-btn absolute top-2.5 left-2.5 z-10 w-8 h-8 rounded-lg bg-surface-dark/80 hover:bg-surface-dark text-slate-300 hover:text-brand border border-subtle flex items-center justify-center transition-all shadow" 
+                title="Додати до списку бажаного"
+                aria-label="Додати S.T.A.L.K.E.R. 2 до списку бажаного"
+              >
+                <i class="fa-solid fa-heart text-xs" aria-hidden="true"></i>
+              </button>
+
+              <a href="https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/" target="_blank" rel="noopener noreferrer" class="block overflow-hidden aspect-[16/9] relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" tabindex="-1" aria-hidden="true">
+                <picture>
+                  <source srcset="assets/images/games/stalker2.webp" type="image/webp">
+                  <img 
+                    src="assets/images/games/stalker2.jpg" 
+                    alt="Постер гри S.T.A.L.K.E.R. 2: Heart of Chornobyl" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="280"
+                    height="158"
+                    loading="lazy"
+                  >
+                </picture>
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px] font-bold bg-surface-dark/85 text-brand border border-brand/30 backdrop-blur-sm">
+                  🇺🇦 UA Audio & Text
+                </span>
+              </a>
+              
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-2.5">
+                <mark class="inline-flex items-center gap-1.5 self-start px-2 py-0.5 rounded text-xs font-semibold bg-brand/10 text-brand border border-brand/25">
+                  <i class="fa-solid fa-fire text-brand" aria-hidden="true"></i>
+                  -15% Гаряча новинка
+                </mark>
+
+                <h3 id="card-title-stalker2" class="text-base font-bold text-white group-hover:text-brand transition-colors leading-snug">
+                  <a href="https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded">
+                    S.T.A.L.K.E.R. 2: Heart of Chornobyl
+                  </a>
+                </h3>
+
+                <p class="text-xs text-muted flex items-center justify-between">
+                  <span>GSC Game World</span>
+                  <span class="text-brand font-medium">★ 89% схвальних</span>
+                </p>
+                
+                <!-- Порівняння цін -->
+                <div class="flex items-baseline justify-between pt-2 border-t border-subtle/80 mt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-extrabold bg-brand/15 text-brand border border-brand/30">-15%</span>
+                    <del class="text-xs text-slate-400 line-through">1,699 ₴</del>
+                  </div>
+                  <strong class="text-lg font-bold text-white">1,444 ₴</strong>
+                </div>
+
+                <!-- Кнопка переходу в магазин Steam -->
+                <a 
+                  href="https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="mt-2 w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-primary text-black font-bold text-sm rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1d24]"
+                  aria-label="Купити S.T.A.L.K.E.R. 2 у Steam за 1,444 гривень зі знижкою 15% (відкриється в новій вкладці)"
+                >
+                  <i class="fa-solid fa-cart-shopping text-sm" aria-hidden="true"></i>
+                  <span>В магазин Steam</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Картка 3: Baldur's Gate 3 -->
+            <article class="group relative flex flex-col bg-surface border border-subtle hover:border-brand/60 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand/10" aria-labelledby="card-title-bg3">
+              
+              <!-- Кнопка додавання до Wishlist -->
+              <button 
+                type="button" 
+                onclick="toggleCardWishlist(event, 'baldursgate3')" 
+                data-wishlist-id="baldursgate3"
+                class="wishlist-btn absolute top-2.5 left-2.5 z-10 w-8 h-8 rounded-lg bg-surface-dark/80 hover:bg-surface-dark text-slate-300 hover:text-brand border border-subtle flex items-center justify-center transition-all shadow" 
+                title="Додати до списку бажаного"
+                aria-label="Додати Baldur's Gate 3 до списку бажаного"
+              >
+                <i class="fa-solid fa-heart text-xs" aria-hidden="true"></i>
+              </button>
+
+              <a href="https://store.steampowered.com/app/1086940/Baldurs_Gate_3/" target="_blank" rel="noopener noreferrer" class="block overflow-hidden aspect-[16/9] relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" tabindex="-1" aria-hidden="true">
+                <picture>
+                  <source srcset="assets/images/games/baldursgate3.webp" type="image/webp">
+                  <img 
+                    src="assets/images/games/baldursgate3.jpg" 
+                    alt="Постер гри Baldur's Gate 3 з головними героями та іллітідом" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="280"
+                    height="158"
+                    loading="lazy"
+                  >
+                </picture>
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px] font-bold bg-surface-dark/85 text-brand border border-brand/30 backdrop-blur-sm">
+                  Steam Deck: Verified
+                </span>
+              </a>
+              
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-2.5">
+                <mark class="inline-flex items-center gap-1.5 self-start px-2 py-0.5 rounded text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <img src="assets/icons/icon_historical_low.svg" alt="" class="w-3.5 h-3.5" width="14" height="14" aria-hidden="true">
+                  -20% Історичний мінімум
+                </mark>
+
+                <h3 id="card-title-bg3" class="text-base font-bold text-white group-hover:text-brand transition-colors leading-snug">
+                  <a href="https://store.steampowered.com/app/1086940/Baldurs_Gate_3/" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded">
+                    Baldur's Gate 3
+                  </a>
+                </h3>
+
+                <p class="text-xs text-muted flex items-center justify-between">
+                  <span>Larian Studios</span>
+                  <span class="text-brand font-medium">★ 96% вкрай схвальні</span>
+                </p>
+                
+                <!-- Порівняння цін -->
+                <div class="flex items-baseline justify-between pt-2 border-t border-subtle/80 mt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-extrabold bg-brand/15 text-brand border border-brand/30">-20%</span>
+                    <del class="text-xs text-slate-400 line-through">1,499 ₴</del>
+                  </div>
+                  <strong class="text-lg font-bold text-white">1,199 ₴</strong>
+                </div>
+
+                <!-- Кнопка переходу в магазин Steam -->
+                <a 
+                  href="https://store.steampowered.com/app/1086940/Baldurs_Gate_3/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="mt-2 w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-primary text-black font-bold text-sm rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1d24]"
+                  aria-label="Купити Baldur's Gate 3 в Steam за 1,199 гривень зі знижкою 20% (відкриється в новій вкладці)"
+                >
+                  <i class="fa-solid fa-cart-shopping text-sm" aria-hidden="true"></i>
+                  <span>В магазин Steam</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Картка 4: Hades II -->
+            <article class="group relative flex flex-col bg-surface border border-subtle hover:border-brand/60 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand/10" aria-labelledby="card-title-hades2">
+              
+              <!-- Кнопка додавання до Wishlist -->
+              <button 
+                type="button" 
+                onclick="toggleCardWishlist(event, 'hades')" 
+                data-wishlist-id="hades"
+                class="wishlist-btn absolute top-2.5 left-2.5 z-10 w-8 h-8 rounded-lg bg-surface-dark/80 hover:bg-surface-dark text-slate-300 hover:text-brand border border-subtle flex items-center justify-center transition-all shadow" 
+                title="Додати до списку бажаного"
+                aria-label="Додати Hades II до списку бажаного"
+              >
+                <i class="fa-solid fa-heart text-xs" aria-hidden="true"></i>
+              </button>
+
+              <a href="https://store.steampowered.com/app/1145350/Hades_II/" target="_blank" rel="noopener noreferrer" class="block overflow-hidden aspect-[16/9] relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" tabindex="-1" aria-hidden="true">
+                <picture>
+                  <source srcset="assets/images/games/hades.webp" type="image/webp">
+                  <img 
+                    src="assets/images/games/hades.jpg" 
+                    alt="Постер міфологічного екшн-роґлайку Hades II" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="280"
+                    height="158"
+                    loading="lazy"
+                  >
+                </picture>
+                <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[11px] font-bold bg-surface-dark/85 text-brand border border-brand/30 backdrop-blur-sm">
+                  Steam Deck: Verified
+                </span>
+              </a>
+              
+              <div class="p-4 sm:p-5 flex flex-col flex-1 gap-2.5">
+                <mark class="inline-flex items-center gap-1.5 self-start px-2 py-0.5 rounded text-xs font-semibold bg-brand/10 text-brand border border-brand/25">
+                  <i class="fa-solid fa-bolt text-brand" aria-hidden="true"></i>
+                  -25% Ранній доступ
+                </mark>
+
+                <h3 id="card-title-hades2" class="text-base font-bold text-white group-hover:text-brand transition-colors leading-snug">
+                  <a href="https://store.steampowered.com/app/1145350/Hades_II/" target="_blank" rel="noopener noreferrer" class="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded">
+                    Hades II
+                  </a>
+                </h3>
+
+                <p class="text-xs text-muted flex items-center justify-between">
+                  <span>Supergiant Games</span>
+                  <span class="text-brand font-medium">★ 98% схвальні</span>
+                </p>
+                
+                <!-- Порівняння цін -->
+                <div class="flex items-baseline justify-between pt-2 border-t border-subtle/80 mt-1">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-extrabold bg-brand/15 text-brand border border-brand/30">-25%</span>
+                    <del class="text-xs text-slate-400 line-through">599 ₴</del>
+                  </div>
+                  <strong class="text-lg font-bold text-white">449 ₴</strong>
+                </div>
+
+                <!-- Кнопка переходу в магазин Steam -->
+                <a 
+                  href="https://store.steampowered.com/app/1145350/Hades_II/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="mt-2 w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-primary text-black font-bold text-sm rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1d24]"
+                  aria-label="Купити Hades II в Steam за 449 гривень зі знижкою 25% (відкриється в новій вкладці)"
+                >
+                  <i class="fa-solid fa-cart-shopping text-sm" aria-hidden="true"></i>
+                  <span>В магазин Steam</span>
+                </a>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- СТРІЧКА ЗНИЖОК STEAM (Live Feed Rows) -->
+          <section id="feed" class="scroll-mt-24 mt-14 pt-10 border-t border-subtle" aria-labelledby="feed-heading">
+            <header class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h2 id="feed-heading" class="text-xl sm:text-2xl font-bold font-headings text-white">Жива стрічка акцій Steam</h2>
+                <p class="text-xs sm:text-sm text-muted">Останні зафіксовані знижки за останні 15 хвилин</p>
+              </div>
+              <span class="text-xs text-brand font-medium bg-brand/10 border border-brand/20 px-3 py-1 rounded-full self-start sm:self-auto">
+                <i class="fa-solid fa-arrows-rotate mr-1" aria-hidden="true"></i> Авто-синк кожні 15 хв
+              </span>
+            </header>
+
+            <ul class="flex flex-col gap-3" aria-label="Стрічка знижок Steam">
+              
+              <!-- Рядок 1: Hollow Knight -->
+              <li>
+                <article class="flex flex-col md:grid md:grid-cols-[auto_auto_1fr_auto_auto] items-start md:items-center gap-4 md:gap-5 p-3.5 sm:p-4 md:px-6 rounded-xl bg-surface border border-subtle hover:border-brand/40 hover:bg-surface-hover/80 transition-all duration-200" aria-labelledby="feed-title-1">
+                  <picture class="w-20 h-11 rounded overflow-hidden bg-surface-dark border border-subtle shrink-0 block">
+                    <source srcset="assets/images/games/hollowknight.webp" type="image/webp">
+                    <img 
+                      src="assets/images/games/hollowknight.jpg" 
+                      alt="Постер гри Hollow Knight" 
+                      class="w-full h-full object-cover block" 
+                      width="80" 
+                      height="44" 
+                      loading="lazy"
+                    >
+                  </picture>
+                  <mark class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-bold bg-brand text-black whitespace-nowrap">
+                    <img src="assets/icons/icon_historical_low.svg" alt="" class="w-3 h-3 shrink-0" width="12" height="12" aria-hidden="true">
+                    -70%
+                  </mark>
+                  <hgroup class="flex flex-col min-w-0">
+                    <h3 id="feed-title-1" class="text-base font-bold text-white hover:text-brand transition-colors truncate mb-0.5">
+                      <a href="https://store.steampowered.com/app/367520/Hollow_Knight/" target="_blank" rel="noopener noreferrer">Hollow Knight</a>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-muted truncate">Team Cherry • Вкрай схвальні (97%)</p>
+                  </hgroup>
+                  <p class="flex items-baseline gap-2 md:px-4">
+                    <del class="text-xs text-slate-400 line-through">379 ₴</del>
+                    <strong class="text-base sm:text-lg font-bold text-white">113 ₴</strong>
+                  </p>
+                  <a 
+                    href="https://store.steampowered.com/app/367520/Hollow_Knight/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="w-full md:w-auto min-h-[44px] inline-flex items-center justify-center text-center px-5 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 text-black font-bold text-xs sm:text-sm rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" 
+                    aria-label="Купити Hollow Knight у Steam за 113 гривень зі знижкою 70% (відкриється в новій вкладці)"
+                  >
+                    В магазин
+                  </a>
+                </article>
+              </li>
+
+              <!-- Рядок 2: ELDEN RING -->
+              <li>
+                <article class="flex flex-col md:grid md:grid-cols-[auto_auto_1fr_auto_auto] items-start md:items-center gap-4 md:gap-5 p-3.5 sm:p-4 md:px-6 rounded-xl bg-surface border border-subtle hover:border-brand/40 hover:bg-surface-hover/80 transition-all duration-200" aria-labelledby="feed-title-2">
+                  <picture class="w-20 h-11 rounded overflow-hidden bg-surface-dark border border-subtle shrink-0 block">
+                    <source srcset="assets/images/games/eldenring.webp" type="image/webp">
+                    <img 
+                      src="assets/images/games/eldenring.jpg" 
+                      alt="Постер гри ELDEN RING" 
+                      class="w-full h-full object-cover block" 
+                      width="80" 
+                      height="44" 
+                      loading="lazy"
+                    >
+                  </picture>
+                  <mark class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-bold bg-brand text-black whitespace-nowrap">
+                    <img src="assets/icons/icon_historical_low.svg" alt="" class="w-3 h-3 shrink-0" width="12" height="12" aria-hidden="true">
+                    -50%
+                  </mark>
+                  <hgroup class="flex flex-col min-w-0">
+                    <h3 id="feed-title-2" class="text-base font-bold text-white hover:text-brand transition-colors truncate mb-0.5">
+                      <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" target="_blank" rel="noopener noreferrer">ELDEN RING</a>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-muted truncate">FromSoftware • Дуже схвальні (92%)</p>
+                  </hgroup>
+                  <p class="flex items-baseline gap-2 md:px-4">
+                    <del class="text-xs text-slate-400 line-through">1,799 ₴</del>
+                    <strong class="text-base sm:text-lg font-bold text-white">899 ₴</strong>
+                  </p>
+                  <a 
+                    href="https://store.steampowered.com/app/1245620/ELDEN_RING/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="w-full md:w-auto min-h-[44px] inline-flex items-center justify-center text-center px-5 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 text-black font-bold text-xs sm:text-sm rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" 
+                    aria-label="Купити ELDEN RING у Steam за 899 гривень зі знижкою 50% (відкриється в новій вкладці)"
+                  >
+                    В магазин
+                  </a>
+                </article>
+              </li>
+
+              <!-- Рядок 3: Doom Eternal -->
+              <li>
+                <article class="flex flex-col md:grid md:grid-cols-[auto_auto_1fr_auto_auto] items-start md:items-center gap-4 md:gap-5 p-3.5 sm:p-4 md:px-6 rounded-xl bg-surface border border-subtle hover:border-brand/40 hover:bg-surface-hover/80 transition-all duration-200" aria-labelledby="feed-title-3">
+                  <picture class="w-20 h-11 rounded overflow-hidden bg-surface-dark border border-subtle shrink-0 block">
+                    <source srcset="assets/images/games/doometernal.webp" type="image/webp">
+                    <img 
+                      src="assets/images/games/doometernal.jpg" 
+                      alt="Постер гри Doom Eternal" 
+                      class="w-full h-full object-cover block" 
+                      width="80" 
+                      height="44" 
+                      loading="lazy"
+                    >
+                  </picture>
+                  <mark class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-bold bg-brand text-black whitespace-nowrap">
+                    <img src="assets/icons/icon_historical_low.svg" alt="" class="w-3 h-3 shrink-0" width="12" height="12" aria-hidden="true">
+                    -80%
+                  </mark>
+                  <hgroup class="flex flex-col min-w-0">
+                    <h3 id="feed-title-3" class="text-base font-bold text-white hover:text-brand transition-colors truncate mb-0.5">
+                      <a href="https://store.steampowered.com/app/782330/DOOM_Eternal/" target="_blank" rel="noopener noreferrer">Doom Eternal</a>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-muted truncate">id Software • Дуже схвальні (91%)</p>
+                  </hgroup>
+                  <p class="flex items-baseline gap-2 md:px-4">
+                    <del class="text-xs text-slate-400 line-through">999 ₴</del>
+                    <strong class="text-base sm:text-lg font-bold text-white">199 ₴</strong>
+                  </p>
+                  <a 
+                    href="https://store.steampowered.com/app/782330/DOOM_Eternal/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="w-full md:w-auto min-h-[44px] inline-flex items-center justify-center text-center px-5 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 text-black font-bold text-xs sm:text-sm rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" 
+                    aria-label="Купити Doom Eternal у Steam за 199 гривень зі знижкою 80% (відкриється в новій вкладці)"
+                  >
+                    В магазин
+                  </a>
+                </article>
+              </li>
+
+            </ul>
+
+            <!-- Кнопка завантаження додаткових карток -->
+            <div class="text-center mt-6">
+              <button 
+                type="button" 
+                class="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-8 py-3 bg-surface-elevated border border-subtle text-brand hover:text-brand-hover hover:border-brand hover:bg-brand/10 hover:scale-105 active:scale-95 hover:shadow-glow-primary font-bold text-sm rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" 
+                aria-label="Завантажити ще 20 актуальних знижок Steam"
+              >
+                <i class="fa-solid fa-spinner text-xs" aria-hidden="true"></i>
+                <span>Завантажити більше пропозицій</span>
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 4: ЧОМУ ОБИРАЮТЬ НАС (Benefits / Why Us — 3 Cards)
+           ==================================================================== -->
+      <section id="why-us" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="benefits-heading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="text-center max-w-3xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-3">
+              <i class="fa-solid fa-shield-halved text-brand" aria-hidden="true"></i> Переваги платформи
+            </div>
+            <h2 id="benefits-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white mb-3">
+              Чому обирають LootRadar?
+            </h2>
+            <p class="text-sm md:text-base text-muted">
+              Технологічні інструменти для чесного геймінгу, аналізу вартості та максимальної економії у Steam.
+            </p>
+          </header>
+
+          <!-- 3 Фокусні картки цінностей (Value Proposition Cards) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            
+            <!-- Картка 1: Steam API трекінг -->
+            <article class="group relative flex flex-col p-6 sm:p-8 rounded-2xl bg-surface border border-subtle hover:border-brand/50 hover:bg-surface-hover/60 transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-glow-primary">
+              <div class="w-14 h-14 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-6 text-brand group-hover:scale-110 group-hover:bg-brand/20 transition-all duration-300">
+                <img 
+                  src="assets/icons/icon_historical_low.svg" 
+                  alt="" 
+                  class="w-7 h-7 object-contain" 
+                  width="28" 
+                  height="28" 
+                  aria-hidden="true"
+                >
+              </div>
+              <h3 class="text-xl font-bold font-headings text-white mb-3 group-hover:text-brand transition-colors">
+                Автоматичний Steam API трекінг
+              </h3>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">
+                Пряма цілодобова інтеграція з офіційним Steam Web API. Сканування змін вартості кожні 15 хвилин для фіксації найменших коливань цін у гривнях без затримок і посередників.
+              </p>
+              <div class="mt-6 pt-4 border-t border-subtle text-xs font-semibold text-brand flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> 100% точність даних
+              </div>
+            </article>
+
+            <!-- Картка 2: Детекція фейкових знижок -->
+            <article class="group relative flex flex-col p-6 sm:p-8 rounded-2xl bg-surface border border-subtle hover:border-brand/50 hover:bg-surface-hover/60 transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-glow-primary">
+              <div class="w-14 h-14 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-6 text-brand group-hover:scale-110 group-hover:bg-brand/20 transition-all duration-300">
+                <img 
+                  src="assets/icons/icon-filter.svg" 
+                  alt="" 
+                  class="w-7 h-7 object-contain" 
+                  width="28" 
+                  height="28" 
+                  aria-hidden="true"
+                >
+              </div>
+              <h3 class="text-xl font-bold font-headings text-white mb-3 group-hover:text-brand transition-colors">
+                Детекція фейкових знижок
+              </h3>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">
+                Алгоритм аналізує 5-річну ретроспективу цін, щоб виявляти недобросовісних видавців, які штучно підвищують базову ціну перед розпродажами. Ми верифікуємо справжній Historical Low.
+              </p>
+              <div class="mt-6 pt-4 border-t border-subtle text-xs font-semibold text-brand flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Захист від маніпуляцій
+              </div>
+            </article>
+
+            <!-- Картка 3: Миттєві алерти спільноти -->
+            <article class="group relative flex flex-col p-6 sm:p-8 rounded-2xl bg-surface border border-subtle hover:border-brand/50 hover:bg-surface-hover/60 transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-glow-primary">
+              <div class="w-14 h-14 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-6 text-brand group-hover:scale-110 group-hover:bg-brand/20 transition-all duration-300">
+                <img 
+                  src="assets/icons/icon_smart_alerts.svg" 
+                  alt="" 
+                  class="w-7 h-7 object-contain" 
+                  width="28" 
+                  height="28" 
+                  aria-hidden="true"
+                >
+              </div>
+              <h3 class="text-xl font-bold font-headings text-white mb-3 group-hover:text-brand transition-colors">
+                Миттєві алерти спільноти
+              </h3>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">
+                Отримуй персональні сигнали у Telegram, Discord або на email у ту саму мить, коли гра з вішліста досягає твоєї бажаної планки або коли стартує лімітована 100% безкоштовна роздача.
+              </p>
+              <div class="mt-6 pt-4 border-t border-subtle text-xs font-semibold text-brand flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Telegram, Discord & Email
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 5: МЕДІА ТА ІНТЕРАКТИВНИЙ ХАБ (Media & Interactive Hub)
+           ==================================================================== -->
+      <section id="media-hub" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="media-hub-heading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="mb-10 text-center sm:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-2">
+              <i class="fa-brands fa-steam text-brand" aria-hidden="true"></i> Медіа-центр Steam
+            </div>
+            <h2 id="media-hub-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white">
+              Медіа & Інтерактивний хаб
+            </h2>
+            <p class="text-sm md:text-base text-muted mt-1">
+              Офіційний трейлер гри Portal 2 від Valve та живий моніторинг сервісів Steam і валютного курсу
+            </p>
+          </header>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Ліва колонка: HTML5 відеоплеєр з трейлером Portal 2 від Valve (7 колонок на Desktop) -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+              <!-- Контейнер відеоплеєра з обов'язковим класом aspect-video w-full rounded-xl shadow-lg border border-subtle -->
+              <div class="aspect-video w-full rounded-xl shadow-lg border border-subtle overflow-hidden bg-surface relative group">
+                <video 
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline 
+                  controls 
+                  preload="auto"
+                  poster="assets/images/games/portal2.webp"
+                  class="w-full h-full object-cover"
+                  title="Офіційний трейлер Portal 2 від Valve"
+                >
+                  <source src="assets/video/portal2_trailer.webm" type="video/webm">
+                  <source src="assets/video/portal2_trailer.mp4" type="video/mp4">
+                  <track kind="captions" srclang="uk" label="Українські субтитри (Трейлер Portal 2)" default>
+                  <p class="p-4 text-xs text-slate-400">Ваш браузер не підтримує відео HTML5. Завантажте трейлер напряму.</p>
+                </video>
+              </div>
+
+              <!-- Картка-підказка під відео -->
+              <div class="p-4 sm:p-5 rounded-xl bg-surface border border-subtle flex items-start gap-3.5">
+                <i class="fa-solid fa-gamepad text-brand text-lg mt-0.5 shrink-0" aria-hidden="true"></i>
+                <div class="text-xs sm:text-sm text-muted">
+                  <strong class="text-white block mb-0.5 font-semibold">Офіційний трейлер Portal 2 від Valve:</strong>
+                  Легендарний тайтл із рекордною знижкою <span class="text-brand font-bold">-90% (23 ₴)</span> у каталозі Steam. Переглядайте трейлер, додавайте гру до свого списку бажаного та отримуйте миттєві сповіщення про завершення акції.
+                </div>
+              </div>
+            </div>
+
+            <!-- Права колонка: Інтерактивний віджет статусу Steam та валютного радара (5 колонок) -->
+            <aside class="lg:col-span-5 flex flex-col bg-surface border border-subtle rounded-2xl p-5 sm:p-6 shadow-xl" aria-label="Інтерактивний статус Steam та валютний радар">
+              
+              <!-- Заголовок віджета з індикатором аптайму -->
+              <div class="flex items-center justify-between pb-4 border-b border-subtle mb-5">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-3 h-3 rounded-full bg-brand animate-pulse" aria-hidden="true"></span>
+                  <h3 class="text-base sm:text-lg font-bold font-headings text-white">Статус серверів Steam</h3>
+                </div>
+                <span class="text-[11px] font-semibold text-brand bg-brand/10 border border-brand/25 px-2.5 py-0.5 rounded-full">
+                  Онлайн 100%
+                </span>
+              </div>
+
+              <!-- Сітка метрик працездатності Steam -->
+              <div class="grid grid-cols-1 min-[340px]:grid-cols-2 gap-3 mb-6">
+                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
+                  <span class="text-[11px] text-slate-400 block mb-0.5">Steam Store API</span>
+                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+                    16 ms <small class="text-[10px] text-brand font-normal">Норма</small>
+                  </span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
+                  <span class="text-[11px] text-slate-400 block mb-0.5">Community & Auth</span>
+                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+                    24 ms <small class="text-[10px] text-brand font-normal">Стабільно</small>
+                  </span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
+                  <span class="text-[11px] text-slate-400 block mb-0.5">Inventory & Trades</span>
+                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+                    31 ms <small class="text-[10px] text-brand font-normal">Норма</small>
+                  </span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-elevated border border-subtle">
+                  <span class="text-[11px] text-slate-400 block mb-0.5">WebAPI Gateway</span>
+                  <span class="text-sm font-bold text-white flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+                    12 ms <small class="text-[10px] text-brand font-normal">Швидко</small>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Блок моніторингу офіційного курсу USD/UAH у Steam -->
+              <div class="p-4 rounded-xl bg-surface-elevated border border-subtle mb-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-slate-400 font-medium">Курс перерахунку Steam (UAH)</span>
+                  <span class="text-xs text-slate-400 flex items-center gap-1">
+                    <i class="fa-solid fa-clock-rotate-left text-[10px]" aria-hidden="true"></i> оновлено 5 хв тому
+                  </span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-xl sm:text-2xl font-bold font-headings text-white">41.25 ₴</span>
+                  <span class="text-xs font-semibold text-brand flex items-center gap-0.5">
+                    <i class="fa-solid fa-arrow-trend-up text-[10px]" aria-hidden="true"></i> +0.15% (НБУ)
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1.5">
+                  LootRadar зіставляє прямі гривневі ціни видавців із регіональним конвертером Valve.
+                </p>
+              </div>
+
+              <!-- Додатковий заклик до дії в сайдбарі -->
+              <a 
+                href="#feed" 
+                class="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand/10 hover:bg-brand/20 border border-brand/30 text-brand font-bold text-xs sm:text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              >
+                <span>Перевірити всі роздачі у стрічці</span>
+                <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+              </a>
+
+            </aside>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 6: СПІЛЬНОТА ТА ВІДГУКИ (Community Proof & Testimonials)
+           ==================================================================== -->
+      <section id="community" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="community-heading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="text-center max-w-3xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-3">
+              <i class="fa-solid fa-users text-brand" aria-hidden="true"></i> Голос спільноти
+            </div>
+            <h2 id="community-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white mb-3">
+              Теплові рейтинги та інсайти гравців
+            </h2>
+            <p class="text-sm md:text-base text-muted">
+              Думки перевірених користувачів Steam, аналіз вигідності пропозицій та живі оцінки (Heat Score).
+            </p>
+          </header>
+
+          <!-- Блок 1: Heat Score Рейтинги популярних пропозицій -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12" aria-label="Теплові оцінки пропозицій спільнотою">
+            
+            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
+              <div>
+                <span class="text-xs text-slate-400 block">Cyberpunk 2077</span>
+                <span class="text-base font-bold text-white">Знижка -60%</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
+                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +542°
+                </span>
+                <button 
+                  type="button" 
+                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
+                  aria-label="Підняти рейтинг пропозиції Cyberpunk 2077"
+                  onclick="incrementHeat(this)"
+                >
+                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
+              <div>
+                <span class="text-xs text-slate-400 block">Baldur's Gate 3</span>
+                <span class="text-base font-bold text-white">Історичний -20%</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
+                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +689°
+                </span>
+                <button 
+                  type="button" 
+                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
+                  aria-label="Підняти рейтинг пропозиції Baldur's Gate 3"
+                  onclick="incrementHeat(this)"
+                >
+                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-4 rounded-xl bg-surface border border-subtle hover:border-brand/40 transition-colors">
+              <div>
+                <span class="text-xs text-slate-400 block">S.T.A.L.K.E.R. 2</span>
+                <span class="text-base font-bold text-white">Релізний сейл -15%</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-extrabold text-brand flex items-center gap-1">
+                  <i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +415°
+                </span>
+                <button 
+                  type="button" 
+                  class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle text-brand hover:bg-brand hover:text-black flex items-center justify-center text-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand"
+                  aria-label="Підняти рейтинг пропозиції S.T.A.L.K.E.R. 2"
+                  onclick="incrementHeat(this)"
+                >
+                  <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Блок 2: Закріплені інсайти від верифікованих гравців (Pinned Insights) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Відгук 1 -->
+            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-brand to-emerald-300 flex items-center justify-center text-black font-extrabold text-sm shrink-0">
+                    NU
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                      Олександр <span class="text-xs text-brand font-normal">(Nomad_UA)</span>
+                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
+                    </h3>
+                    <p class="text-xs text-muted">Steam Рівень 58 • 1,240+ год у Steam</p>
+                  </div>
+                </div>
+                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
+                  «LootRadar уберіг мій гаманець під час трьох сезонних розпродажів. Сповіщення в Telegram про новий історичний мінімум приходять миттєво, коли гра дійсно на дні ціни, а не під час фейкових сейлів.»
+                </blockquote>
+              </div>
+              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
+                <span>Заощаджено: <strong class="text-brand">4,280 ₴</strong></span>
+                <time datetime="2026-10-24">24 жовтня 2026</time>
+              </div>
+            </article>
+
+            <!-- Відгук 2 -->
+            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-purple-500 to-brand flex items-center justify-center text-white font-extrabold text-sm shrink-0">
+                    VK
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                      Катерина <span class="text-xs text-brand font-normal">(ValkyrieKyiv)</span>
+                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
+                    </h3>
+                    <p class="text-xs text-muted">Steam Рівень 42 • Steam Deck Verified Hunter</p>
+                  </div>
+                </div>
+                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
+                  «Для мене ключовий фактор — наявність фільтра Steam Deck Verified та перевірка офіційної української локалізації. Тепер вибираю ігри для подорожей за 2 кліки без зайвих сумнівів.»
+                </blockquote>
+              </div>
+              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
+                <span>Заощаджено: <strong class="text-brand">2,650 ₴</strong></span>
+                <time datetime="2026-11-01">1 листопада 2026</time>
+              </div>
+            </article>
+
+            <!-- Відгук 3 -->
+            <article class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-surface border border-subtle hover:border-brand/40 transition-all duration-300 shadow-sm">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-brand flex items-center justify-center text-black font-extrabold text-sm shrink-0">
+                    SG
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                      Максим <span class="text-xs text-brand font-normal">(StalkerGhost)</span>
+                      <i class="fa-solid fa-circle-check text-brand text-xs" title="Верифікований профіль Steam" aria-hidden="true"></i>
+                    </h3>
+                    <p class="text-xs text-muted">Steam Рівень 71 • 2,100+ год у Steam</p>
+                  </div>
+                </div>
+                <blockquote class="text-sm text-slate-300 leading-relaxed italic">
+                  «Найзручніший агрегатор в укрнеті. Синхронізував вішліст зі Steam за 10 секунд — тепер не треба щоранку вручну гортати пошту, бо бот шле тільки реальні знижки від 50%.»
+                </blockquote>
+              </div>
+              <div class="mt-4 pt-3 border-t border-subtle text-xs text-slate-400 flex items-center justify-between">
+                <span>Заощаджено: <strong class="text-brand">5,910 ₴</strong></span>
+                <time datetime="2026-11-04">4 листопада 2026</time>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 7: ЛОКАЦІЯ ТА КОНТАКТИ (Location & Contacts)
+           ==================================================================== -->
+      <section id="contacts" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="contacts-heading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="mb-10 text-center sm:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-2">
+              <i class="fa-solid fa-map-pin text-brand" aria-hidden="true"></i> Штаб-квартира розробки
+            </div>
+            <h2 id="contacts-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white">
+              Локація хабу та контакти спільноти
+            </h2>
+            <p class="text-sm md:text-base text-muted mt-1">
+              Створено в Україні: офіційний осередок команди розробки LootRadar у місті Львів
+            </p>
+          </header>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            <!-- Ліва колонка: Інтерактивна Google Карта у семантичному контейнері figure (7 колонок) -->
+            <figure class="lg:col-span-7 w-full h-80 sm:h-96 lg:h-full min-h-[320px] rounded-xl border border-subtle overflow-hidden shadow-lg relative m-0">
+              <iframe 
+                title="Розташування осередку LootRadar у Національному університеті Львівська політехніка"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2573.1091599557457!2d24.01211727689146!3d49.835741731118184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add7b76f53a47%3A0xb363404c00000000!2sLviv%20Polytechnic%20National%20University!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua" 
+                class="w-full h-full border-0" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade" 
+                allowfullscreen
+              ></iframe>
+              <figcaption class="sr-only">
+                Інтерактивна карта розташування хабу розробників LootRadar у Львові
+              </figcaption>
+            </figure>
+
+            <!-- Права колонка: Контактні дані та адреса хабу (5 колонок) -->
+            <address class="lg:col-span-5 not-italic flex flex-col justify-between bg-surface border border-subtle rounded-2xl p-6 sm:p-8 shadow-xl">
+              
+              <div class="space-y-6">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-brand mb-1 block">Офіційна локація</span>
+                  <h3 class="text-xl font-bold font-headings text-white mb-2">LootRadar Community Hub</h3>
+                  <p class="text-sm text-muted leading-relaxed">
+                    Національний університет «Львівська політехніка»,<br>
+                    вул. Степана Бандери, 12, м. Львів, 79013, Україна
+                  </p>
+                </div>
+
+                <div class="space-y-3 pt-4 border-t border-subtle">
+                  <div class="flex items-center gap-3 text-sm text-muted">
+                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
+                      <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-slate-400 block">Електронна пошта підтримки</span>
+                      <a href="mailto:support@lootradar.games" class="text-white hover:text-brand font-semibold transition-colors">support@lootradar.games</a>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-3 text-sm text-muted">
+                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
+                      <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-slate-400 block">Telegram-канал миттєвих сповіщень</span>
+                      <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand font-semibold transition-colors">@lootradar_ua</a>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-3 text-sm text-muted">
+                    <div class="w-9 h-9 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center text-brand shrink-0">
+                      <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs text-slate-400 block">Геймерський Discord сервер</span>
+                      <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand font-semibold transition-colors">discord.gg/lootradar</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Графік роботи серверів та підтримки -->
+              <div class="mt-8 pt-4 border-t border-subtle text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate-300">
+                  <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+                  Автоматичний трекінг: 24/7/365
+                </span>
+                <span>Техпідтримка: Пн-Пт 10:00–19:00</span>
+              </div>
+
+            </address>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 8: ЧАСТІ ЗАПИТАННЯ (FAQ Section — Accessible Accordion)
+           ==================================================================== -->
+      <section id="faq" class="scroll-mt-24 py-16 sm:py-20 border-b border-subtle" aria-labelledby="faq-heading">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <header class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand mb-3">
+              <i class="fa-solid fa-circle-question text-brand" aria-hidden="true"></i> База знань
+            </div>
+            <h2 id="faq-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-headings text-white mb-3">
+              Часті запитання (FAQ)
+            </h2>
+            <p class="text-sm md:text-base text-muted">
+              Все про безпеку Steam OAuth, періодичність оновлень цін та автоматичну синхронізацію вішліста.
+            </p>
+          </header>
+
+          <!-- Семантичний доступний акордеон на базі details/summary -->
+          <div class="space-y-4">
+
+            <!-- Запитання 1: Steam OAuth безпека -->
+            <details class="group bg-surface border border-subtle rounded-2xl overflow-hidden transition-all duration-200 open:border-brand/50 open:bg-[#242832]/70">
+              <summary class="w-full min-h-[48px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                <span class="flex items-center gap-3">
+                  <i class="fa-brands fa-steam text-brand text-xl shrink-0" aria-hidden="true"></i>
+                  Чи безпечно авторизуватися через Steam (Steam OpenID)?
+                </span>
+                <span class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform duration-200 text-brand">
+                  <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <div class="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-muted leading-relaxed border-t border-subtle/60">
+                <p>
+                  <strong>Абсолютно безпечно.</strong> LootRadar використовує офіційний відкритий протокол <em>Valve Steam OpenID 2.0</em>. Ви проходите авторизацію безпосередньо на офіційному захищеному домені <code>store.steampowered.com</code>. Ми ніколи не запитуємо та фізично не маємо доступу до вашого логіна, пароля, платіжних реквізитів чи вмісту інвентарю. Платформа отримує лише ваш загальнодоступний Steam ID (64-bit) та аватар.
+                </p>
+              </div>
+            </details>
+
+            <!-- Запитання 2: Періодичність оновлень цін -->
+            <details class="group bg-surface border border-subtle rounded-2xl overflow-hidden transition-all duration-200 open:border-brand/50 open:bg-[#242832]/70">
+              <summary class="w-full min-h-[48px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                <span class="flex items-center gap-3">
+                  <i class="fa-solid fa-clock text-brand text-lg shrink-0" aria-hidden="true"></i>
+                  Як часто оновлюються ціни та знижки у каталозі?
+                </span>
+                <span class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform duration-200 text-brand">
+                  <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <div class="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-muted leading-relaxed border-t border-subtle/60">
+                <p>
+                  Наші фонові сервіси опитують сервери Valve <strong>кожні 15 хвилин цілодобово</strong>. Під час старту масштабних сезонних акцій (Steam Summer Sale, Winter Sale, Autumn Sale) частота синхронізації каталогу автоматично підвищується до кожних 3 хвилин, щоб користувачі LootRadar бачили актуальні цінники миттєво після їх активації.
+                </p>
+              </div>
+            </details>
+
+            <!-- Запитання 3: Синхронізація вішліста -->
+            <details class="group bg-surface border border-subtle rounded-2xl overflow-hidden transition-all duration-200 open:border-brand/50 open:bg-[#242832]/70">
+              <summary class="w-full min-h-[48px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                <span class="flex items-center gap-3">
+                  <i class="fa-solid fa-heart text-brand text-lg shrink-0" aria-hidden="true"></i>
+                  Як працює автоматична синхронізація Списку бажаного (Wishlist)?
+                </span>
+                <span class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform duration-200 text-brand">
+                  <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <div class="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-muted leading-relaxed border-t border-subtle/60">
+                <p>
+                  Після натискання «Синхронізувати Steam» система автоматично імпортує публічний список бажаного вашого профілю. Ви зможете задати власні критерії сповіщень: наприклад, сповіщати лише у разі падіння ціни нижче 300 ₴ або виключно при встановленні нового <em>Historical Low</em>. Сповіщення доставляються прямо у Telegram або на email.
+                </p>
+              </div>
+            </details>
+
+            <!-- Запитання 4: Як розпізнаються фейкові знижки -->
+            <details class="group bg-surface border border-subtle rounded-2xl overflow-hidden transition-all duration-200 open:border-brand/50 open:bg-[#242832]/70">
+              <summary class="w-full min-h-[48px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                <span class="flex items-center gap-3">
+                  <i class="fa-solid fa-filter text-brand text-lg shrink-0" aria-hidden="true"></i>
+                  Як LootRadar розпізнає штучно завищені або «фейкові» знижки?
+                </span>
+                <span class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform duration-200 text-brand">
+                  <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <div class="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-muted leading-relaxed border-t border-subtle/60">
+                <p>
+                  Ми ведемо безперервну історію кожного цінника за останні 5 років. Якщо видавець гри підвищив її базову ціну незадовго до старту розпродажу (наприклад, з 600 ₴ до 900 ₴, щоб оголосити -50%), наш алгоритм виявляє таку аномалію, блокує статус «Історичний мінімум» та відображає для користувача реальну попередню вартість.
+                </p>
+              </div>
+            </details>
+
+            <!-- Запитання 5: Безкоштовні роздачі -->
+            <details class="group bg-surface border border-subtle rounded-2xl overflow-hidden transition-all duration-200 open:border-brand/50 open:bg-[#242832]/70">
+              <summary class="w-full min-h-[48px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+                <span class="flex items-center gap-3">
+                  <i class="fa-solid fa-gift text-brand text-lg shrink-0" aria-hidden="true"></i>
+                  Чи сповіщає сервіс про 100% безкоштовні роздачі тайтлів?
+                </span>
+                <span class="w-8 h-8 rounded-lg bg-surface-elevated border border-subtle flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform duration-200 text-brand">
+                  <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <div class="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-muted leading-relaxed border-t border-subtle/60">
+                <p>
+                  Так! Щойно видавець або Valve оголошують лімітовану за часом 100% роздачу гри, якою можна назавжди поповнити свою бібліотеку, LootRadar негайно надсилає пуш-сповіщення найвищого пріоритету із прямим посиланням на активацію, щоб ви гарантовано встигли забрати тайтл до закінчення акції.
+                </p>
+              </div>
+            </details>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           СЕКЦІЯ 9: ФІНАЛЬНИЙ БАНЕР І ЛІДОГЕНЕРАЦІЯ (Final CTA Banner)
+           ==================================================================== -->
+      <section id="cta-banner" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="cta-banner-heading">
+        <div class="relative max-w-5xl mx-auto rounded-3xl bg-gradient-to-b from-[#1a1d24] to-[#12151b] border border-brand/40 p-8 sm:p-12 lg:p-14 text-center overflow-hidden shadow-glow-primary">
+          
+          <!-- Фонове підсвічування -->
+          <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+          <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+          <div class="relative z-10 max-w-2xl mx-auto">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/15 border border-brand/30 text-xs font-bold text-brand mb-4">
+              <i class="fa-solid fa-bell text-brand" aria-hidden="true"></i> Жодної пропущеної роздачі
+            </span>
+            
+            <h2 id="cta-banner-heading" class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-headings text-white leading-tight mb-4 tracking-tight">
+              Готовий купувати ігри за найчеснішими цінами?
+            </h2>
+            
+            <p class="text-sm sm:text-base lg:text-lg text-muted leading-relaxed mb-8">
+              Приєднуйся до 12,000+ українських геймерів. Отримуй щотижневі дайджести, сповіщення про 100% безкоштовні роздачі та падіння цін до абсолютного історичного мінімуму.
+            </p>
+
+            <!-- Доступна форма лідогенерації -->
+            <form id="lead-capture-form" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg mx-auto" aria-label="Підписка на миттєві алерти роздач">
+              <label for="cta-email" class="sr-only">Ваша електронна пошта для отримання сповіщень</label>
+              <input 
+                type="email" 
+                id="cta-email" 
+                name="email" 
+                required 
+                placeholder="Введіть ваш email для сповіщень..." 
+                autocomplete="email"
+                class="flex-1 min-h-[48px] px-4 py-3 bg-surface-dark text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand transition-all"
+              >
+              <button 
+                type="submit" 
+                class="min-h-[48px] px-7 py-3.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 hover:shadow-glow-accent text-black font-extrabold text-sm sm:text-base rounded-xl whitespace-nowrap transition-all duration-200 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
+              >
+                Отримувати миттєві алерти
+              </button>
+            </form>
+
+            <div id="lead-feedback-msg" class="hidden mt-3 text-xs text-brand font-semibold" aria-live="polite">
+              <i class="fa-solid fa-check-circle mr-1" aria-hidden="true"></i> Дякуємо! Ви успішно підписалися на сповіщення про роздачі.
+            </div>
+
+            <p class="text-xs text-slate-400 mt-4">
+              🔒 100% захист від спаму. Лише перевірені роздачі та історичні мінімуми. Відписка в один клік у будь-який момент.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================================
+         10. БАГАТОКОЛОНКОВИЙ ПІДВАЛ САЙТУ (Multi-Column Footer)
+         ====================================================================== -->
+    <footer class="border-t border-subtle bg-surface-dark text-slate-400 pt-14 pb-8 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Основна 4-колонкова сітка навігації -->
+        <h2 class="sr-only">Навігація та ресурси підвалу сайту</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-12 border-b border-subtle">
+          
+          <!-- Колонка 1: Бренд та місія -->
+          <div class="space-y-4">
+            <a href="index.html" class="flex items-center gap-2.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-lg" aria-label="LootRadar Головна">
+              <img 
+                src="assets/images/logo.svg" 
+                alt="LootRadar Логотип" 
+                class="w-8 h-8 object-contain" 
+                width="32" 
+                height="32"
+                aria-hidden="true"
+              >
+              <span class="font-headings font-bold text-white text-xl tracking-tight">Loot<span class="text-brand">Radar</span></span>
+            </a>
+            <p class="text-xs text-muted leading-relaxed">
+              Незалежний український агрегатор чесних знижок, історичних мінімумів та 100% безкоштовних роздач у Steam. Допомагаємо геймерам купувати розумно.
+            </p>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border border-subtle text-[11px] text-brand">
+              <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+              Steam Web API: Онлайн (100%)
+            </div>
+          </div>
+
+          <!-- Колонка 2: Навігація по знижках -->
+          <nav aria-label="Каталог знижок у підвалі">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Каталог знижок</h3>
+            <ul class="space-y-2.5 text-xs text-muted">
+              <li>
+                <a href="#deals" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Гарячі пропозиції дня</a>
+              </li>
+              <li>
+                <a href="#deals" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Історичні мінімуми цін</a>
+              </li>
+              <li>
+                <a href="#deals" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">100% Безкоштовні роздачі</a>
+              </li>
+              <li>
+                <a href="#deals" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Ігри до 200 ₴</a>
+              </li>
+              <li>
+                <a href="#deals" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Steam Deck Verified тайтли</a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Колонка 3: Спільнота та медіа -->
+          <nav aria-label="Спільнота та ресурси">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Спільнота & Хаб</h3>
+            <ul class="space-y-2.5 text-xs text-muted">
+              <li>
+                <a href="#media-hub" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Відеогід з покупок</a>
+              </li>
+              <li>
+                <a href="#community" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Обговорення та рейтинги</a>
+              </li>
+              <li>
+                <a href="#why-us" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Чому ми (Steam API трекінг)</a>
+              </li>
+              <li>
+                <a href="#faq" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Безпека та FAQ</a>
+              </li>
+              <li>
+                <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors min-h-[44px] inline-flex items-center gap-1.5">
+                  <i class="fa-brands fa-telegram text-brand" aria-hidden="true"></i> Telegram-канал алертів
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Колонка 4: Контакти та хаб розробки -->
+          <div class="space-y-3">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-4">Хаб розробки</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Львівський осередковий центр:<br>
+              НУ «Львівська політехніка»,<br>
+              вул. Степана Бандери, 12, м. Львів, 79013
+            </p>
+            <div class="pt-2">
+              <span class="text-xs text-slate-400 block mb-1">Служба підтримки:</span>
+              <a href="mailto:support@lootradar.games" class="text-xs text-white hover:text-brand font-semibold transition-colors">support@lootradar.games</a>
+            </div>
+            
+            <!-- Соціальні мережі спільноти -->
+            <div class="pt-3">
+              <span class="text-xs text-slate-400 block mb-2">Наші канали:</span>
+              <div class="flex items-center gap-2">
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:bg-brand/10 flex items-center justify-center text-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand" aria-label="Спільнота LootRadar у Discord">
+                  <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                </a>
+                <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:bg-brand/10 flex items-center justify-center text-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand" aria-label="Telegram-канал сповіщень LootRadar">
+                  <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+                </a>
+                <a href="https://steamcommunity.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:bg-brand/10 flex items-center justify-center text-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand" aria-label="Офіційна група гравців у Steam">
+                  <i class="fa-brands fa-steam" aria-hidden="true"></i>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-lg bg-surface border border-subtle text-slate-300 hover:text-white hover:border-brand hover:bg-brand/10 flex items-center justify-center text-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand" aria-label="Репозиторій проєкту на GitHub">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Нижня юридична панель та дисклеймер Valve/Steam -->
+        <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          
+          <!-- Юридичний дисклеймер Valve Corporation -->
+          <div class="text-center md:text-left text-slate-400 leading-relaxed max-w-2xl">
+            <p>
+              © 2026 LootRadar. Всі права захищено. Steam та логотип Steam є торговими марками або зареєстрованими торговими марками корпорації Valve Corporation у США та/або інших країнах. LootRadar є незалежною некомерційною розробкою і не є афілійованим із Valve Corporation.
+            </p>
+          </div>
+
+          <!-- Посилання на умови та конфіденційність -->
+          <nav class="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-slate-400" aria-label="Юридичні документи">
+            <a href="#faq" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">API</a>
+            <span class="text-slate-700 select-none" aria-hidden="true">•</span>
+            <a href="#faq" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Конфіденційність</a>
+            <span class="text-slate-700 select-none" aria-hidden="true">•</span>
+            <a href="#faq" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Умови використання</a>
+            <span class="text-slate-700 select-none" aria-hidden="true">•</span>
+            <a href="#contacts" class="min-h-[44px] inline-flex items-center hover:text-brand transition-colors">Контакти</a>
+          </nav>
+
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ======================================================================
+       МОДАЛЬНЕ ВІКНО АВТОРИЗАЦІЇ STEAM OPENID 2.0 (Заглушка-акаунт)
+       ====================================================================== -->
+  <dialog id="steam-login-modal" class="fixed inset-0 z-[100] m-auto p-0 bg-transparent backdrop:bg-black/80 backdrop:backdrop-blur-sm max-w-lg w-[92%] rounded-2xl border border-subtle bg-surface-elevated text-white shadow-2xl focus:outline-none" aria-labelledby="modal-steam-title" aria-modal="true">
+    <div class="p-6 sm:p-8">
+      <!-- Заголовок і кнопка закриття -->
+      <div class="flex items-center justify-between pb-4 border-b border-subtle mb-5">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-brand/10 border border-brand/30 flex items-center justify-center text-brand text-lg">
+            <i class="fa-brands fa-steam" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3 id="modal-steam-title" class="text-lg font-bold font-headings text-white">Вхід через Steam OpenID</h3>
+            <span class="text-[11px] text-brand font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-shield-halved text-[10px]" aria-hidden="true"></i> Valve OpenID 2.0 Protocol
+            </span>
+          </div>
+        </div>
+        <button 
+          type="button" 
+          onclick="closeSteamLoginModal()" 
+          class="w-9 h-9 flex items-center justify-center rounded-lg bg-surface border border-subtle text-slate-400 hover:text-white hover:border-brand transition-all"
+          aria-label="Закрити модальне вікно"
+        >
+          <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Тіло вікна: опис безпеки та картка заглушки-акаунта -->
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+        Увійдіть через Steam, щоб автоматично синхронізувати свій список бажаного, відстежувати ціни у гривнях та отримувати персональні сповіщення.
+      </p>
+
+      <!-- Картка попереднього перегляду заглушки-акаунта -->
+      <div class="p-4 rounded-xl bg-surface border border-subtle mb-6 flex items-center gap-3.5 sm:gap-4">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-brand shadow-glow-primary shrink-0">
+          <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2 mb-0.5">
+            <strong class="text-sm font-bold text-white truncate">StalkerGhost_UA</strong>
+            <span class="text-[10px] bg-brand/10 border border-brand/30 text-brand px-1.5 py-0.5 rounded font-bold">Рівень 48</span>
+          </div>
+          <p class="text-xs text-slate-400 truncate">SteamID: 76561198089421804</p>
+          <span class="text-[11px] text-brand flex items-center gap-1 mt-1 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" aria-hidden="true"></span>
+            Заглушка-акаунт готова до підключення
+          </span>
+        </div>
+      </div>
+
+      <!-- Безпека Steam OpenID -->
+      <div class="mb-6 p-3 rounded-xl bg-surface-dark border border-subtle text-[11px] text-slate-400 flex items-start gap-2">
+        <i class="fa-solid fa-lock text-brand mt-0.5" aria-hidden="true"></i>
+        <span>LootRadar використовує безпечний протокол Valve OpenID 2.0 без доступу до ваших паролів чи платіжних даних.</span>
+      </div>
+
+      <!-- Кнопки дій -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <button 
+          type="button" 
+          onclick="loginAsDemoStub()" 
+          class="flex-1 min-h-[46px] inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand hover:bg-brand-hover active:bg-brand-active text-black font-extrabold text-sm rounded-xl transition-all shadow hover:shadow-glow-primary"
+        >
+          <i class="fa-brands fa-steam text-base" aria-hidden="true"></i>
+          <span>Увійти в заглушку-акаунт</span>
+        </button>
+        <a 
+          href="account.html" 
+          class="inline-flex items-center justify-center min-h-[46px] px-4 py-3 bg-surface hover:bg-surface-hover border border-subtle text-slate-300 hover:text-white font-semibold text-xs sm:text-sm rounded-xl transition-all text-center"
+        >
+          Переглянути кабінет
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+
+
+  <!-- Клієнтський інтерактивний скрипт LootRadar (Авторизація, Wishlist, Модальне вікно) -->
+  <script>
+    // Глобальний менеджер стану LootRadar (Заглушка-акаунт та Wishlist)
+    const LootRadar = (function() {
+      const STORAGE_KEY_AUTH = 'lootradar_steam_user';
+      const STORAGE_KEY_WISHLIST = 'lootradar_wishlist';
+
+      const DEFAULT_WISHLIST_GAMES = [
+        {
+          id: 'cyberpunk',
+          title: 'Cyberpunk 2077',
+          image: 'assets/images/games/cyberpunk.webp',
+          fallbackImage: 'assets/images/games/cyberpunk.jpg',
+          currentPrice: 479,
+          oldPrice: 1199,
+          discount: 60,
+          historicalLow: true,
+          steamDeck: 'Playable',
+          steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+          tag: 'RPG / Open World'
+        },
+        {
+          id: 'stalker2',
+          title: 'S.T.A.L.K.E.R. 2: Heart of Chornobyl',
+          image: 'assets/images/games/stalker2.webp',
+          fallbackImage: 'assets/images/games/stalker2.jpg',
+          currentPrice: 849,
+          oldPrice: 999,
+          discount: 15,
+          historicalLow: false,
+          steamDeck: 'Verified',
+          steamUrl: 'https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/',
+          tag: 'FPS / Survival'
+        },
+        {
+          id: 'baldursgate3',
+          title: "Baldur's Gate 3",
+          image: 'assets/images/games/baldursgate3.webp',
+          fallbackImage: 'assets/images/games/baldursgate3.jpg',
+          currentPrice: 1199,
+          oldPrice: 1499,
+          discount: 20,
+          historicalLow: true,
+          steamDeck: 'Verified',
+          steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+          tag: 'CRPG'
+        }
+      ];
+
+      const DEFAULT_USER_PROFILE = {
+        steamId: '76561198089421804',
+        personaName: 'StalkerGhost_UA',
+        avatar: 'https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg',
+        steamLevel: 48,
+        openIdVerified: true
+      };
+
+      return {
+        auth: {
+          isLoggedIn: function() { return localStorage.getItem(STORAGE_KEY_AUTH) !== null; },
+          getUser: function() { return JSON.parse(localStorage.getItem(STORAGE_KEY_AUTH) || 'null'); },
+          login: function(u) {
+            const p = u || DEFAULT_USER_PROFILE;
+            localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(p));
+            window.dispatchEvent(new CustomEvent('lootradar:auth_changed'));
+            return p;
+          },
+          logout: function() {
+            localStorage.removeItem(STORAGE_KEY_AUTH);
+            window.dispatchEvent(new CustomEvent('lootradar:auth_changed'));
+          }
+        },
+        wishlist: {
+          init: function() {
+            if (!localStorage.getItem(STORAGE_KEY_WISHLIST)) {
+              localStorage.setItem(STORAGE_KEY_WISHLIST, JSON.stringify(DEFAULT_WISHLIST_GAMES));
+            }
+          },
+          getAll: function() {
+            this.init();
+            return JSON.parse(localStorage.getItem(STORAGE_KEY_WISHLIST) || '[]');
+          },
+          getCount: function() { return this.getAll().length; },
+          has: function(id) { return this.getAll().some(function(i) { return i.id === id; }); },
+          add: function(game) {
+            let items = this.getAll();
+            if (!items.some(function(i) { return i.id === game.id; })) {
+              items.push(game);
+              localStorage.setItem(STORAGE_KEY_WISHLIST, JSON.stringify(items));
+              window.dispatchEvent(new CustomEvent('lootradar:wishlist_changed', { detail: { count: items.length } }));
+            }
+          },
+          remove: function(id) {
+            let items = this.getAll().filter(function(i) { return i.id !== id; });
+            localStorage.setItem(STORAGE_KEY_WISHLIST, JSON.stringify(items));
+            window.dispatchEvent(new CustomEvent('lootradar:wishlist_changed', { detail: { count: items.length } }));
+          },
+          toggle: function(game) {
+            if (this.has(game.id)) { this.remove(game.id); } else { this.add(game); }
+          }
+        }
+      };
+    })();
+
+    // Розширений каталог тайтлів платформи LootRadar (для синхронізації з Wishlist та Steam API)
+    const CATALOG_GAMES_MAP = {
+      'portal2': {
+        id: 'portal2',
+        title: 'Portal 2',
+        image: 'assets/images/games/portal2.webp',
+        fallbackImage: 'assets/images/games/portal2.jpg',
+        currentPrice: 23,
+        oldPrice: 229,
+        discount: 90,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/620/Portal_2/',
+        tag: 'Puzzle / Sci-Fi'
+      },
+      'cyberpunk': {
+        id: 'cyberpunk',
+        title: 'Cyberpunk 2077',
+        image: 'assets/images/games/cyberpunk.webp',
+        fallbackImage: 'assets/images/games/cyberpunk.jpg',
+        currentPrice: 479,
+        oldPrice: 1199,
+        discount: 60,
+        historicalLow: true,
+        steamDeck: 'Playable',
+        steamUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/',
+        tag: 'RPG / Open World'
+      },
+      'stalker2': {
+        id: 'stalker2',
+        title: 'S.T.A.L.K.E.R. 2: Heart of Chornobyl',
+        image: 'assets/images/games/stalker2.webp',
+        fallbackImage: 'assets/images/games/stalker2.jpg',
+        currentPrice: 849,
+        oldPrice: 999,
+        discount: 15,
+        historicalLow: false,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/',
+        tag: 'FPS / Survival'
+      },
+      'baldursgate3': {
+        id: 'baldursgate3',
+        title: "Baldur's Gate 3",
+        image: 'assets/images/games/baldursgate3.webp',
+        fallbackImage: 'assets/images/games/baldursgate3.jpg',
+        currentPrice: 1199,
+        oldPrice: 1499,
+        discount: 20,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/1086940/Baldurs_Gate_3/',
+        tag: 'CRPG'
+      },
+      'hades': {
+        id: 'hades',
+        title: 'Hades II',
+        image: 'assets/images/games/hades.webp',
+        fallbackImage: 'assets/images/games/hades.jpg',
+        currentPrice: 599,
+        oldPrice: 799,
+        discount: 25,
+        historicalLow: false,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/1145350/Hades_II/',
+        tag: 'Rogue-like'
+      },
+      'witcher3': {
+        id: 'witcher3',
+        title: 'The Witcher 3: Wild Hunt',
+        image: 'assets/images/games/witcher3.webp',
+        fallbackImage: 'assets/images/games/witcher3.jpg',
+        currentPrice: 159,
+        oldPrice: 799,
+        discount: 80,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/',
+        tag: 'RPG / Open World'
+      },
+      'eldenring': {
+        id: 'eldenring',
+        title: 'Elden Ring',
+        image: 'assets/images/games/eldenring.webp',
+        fallbackImage: 'assets/images/games/eldenring.jpg',
+        currentPrice: 1259,
+        oldPrice: 1799,
+        discount: 30,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/',
+        tag: 'Souls-like / Action'
+      },
+      'rdr2': {
+        id: 'rdr2',
+        title: 'Red Dead Redemption 2',
+        image: 'assets/images/games/rdr2.webp',
+        fallbackImage: 'assets/images/games/rdr2.jpg',
+        currentPrice: 599,
+        oldPrice: 1499,
+        discount: 60,
+        historicalLow: true,
+        steamDeck: 'Playable',
+        steamUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/',
+        tag: 'Open World'
+      },
+      'hollowknight': {
+        id: 'hollowknight',
+        title: 'Hollow Knight',
+        image: 'assets/images/games/hollowknight.webp',
+        fallbackImage: 'assets/images/games/hollowknight.jpg',
+        currentPrice: 114,
+        oldPrice: 229,
+        discount: 50,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/367520/Hollow_Knight/',
+        tag: 'Metroidvania'
+      },
+      'doometernal': {
+        id: 'doometernal',
+        title: 'DOOM Eternal',
+        image: 'assets/images/games/doometernal.webp',
+        fallbackImage: 'assets/images/games/doometernal.jpg',
+        currentPrice: 249,
+        oldPrice: 999,
+        discount: 75,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/782330/DOOM_Eternal/',
+        tag: 'FPS / Action'
+      },
+      'hogwarts': {
+        id: 'hogwarts',
+        title: 'Hogwarts Legacy',
+        image: 'assets/images/games/hogwarts.webp',
+        fallbackImage: 'assets/images/games/hogwarts.jpg',
+        currentPrice: 479,
+        oldPrice: 1599,
+        discount: 70,
+        historicalLow: true,
+        steamDeck: 'Verified',
+        steamUrl: 'https://store.steampowered.com/app/990080/Hogwarts_Legacy/',
+        tag: 'RPG / Fantasy'
+      }
+    };
+
+    /**
+     * Додавання / Видалення гри з Wishlist за кліком на сердечко картки
+     */
+    function toggleCardWishlist(e, gameId) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const game = CATALOG_GAMES_MAP[gameId];
+      if (!game) return;
+      LootRadar.wishlist.toggle(game);
+      syncWishlistButtons();
+    }
+
+    /**
+     * Оновлення візуального стану кнопок Wishlist та лічильника в хедері
+     */
+    function syncWishlistButtons() {
+      const badge = document.getElementById('header-wishlist-count');
+      if (badge) {
+        badge.textContent = LootRadar.wishlist.getCount();
+      }
+
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        const id = btn.getAttribute('data-wishlist-id');
+        const icon = btn.querySelector('i');
+        if (LootRadar.wishlist.has(id)) {
+          btn.classList.add('bg-brand/20', 'border-brand', 'text-brand');
+          btn.classList.remove('bg-surface-dark/80', 'text-slate-300', 'border-subtle');
+          if (icon) icon.className = 'fa-solid fa-heart text-xs text-brand';
+          btn.setAttribute('title', 'У списку бажаного (натисніть щоб прибрати)');
+        } else {
+          btn.classList.remove('bg-brand/20', 'border-brand', 'text-brand');
+          btn.classList.add('bg-surface-dark/80', 'text-slate-300', 'border-subtle');
+          if (icon) icon.className = 'fa-solid fa-heart text-xs text-slate-300';
+          btn.setAttribute('title', 'Додати до списку бажаного');
+        }
+      });
+    }
+
+    /**
+     * Оновлення інтерфейсу блоку авторизації в шапці сайту
+     */
+    function syncAuthStateUI() {
+      const container = document.getElementById('header-auth-container');
+      if (!container) return;
+
+      if (LootRadar.auth.isLoggedIn()) {
+        const user = LootRadar.auth.getUser();
+        container.innerHTML = `
+          <div class="relative group">
+            <a 
+              href="account.html" 
+              class="inline-flex items-center gap-2 h-10 px-2.5 sm:px-3 bg-surface border border-brand/40 hover:border-brand rounded-lg transition-all"
+              aria-label="Перейти в кабінет Steam: ${user.personaName}"
+            >
+              <img src="${user.avatar}" alt="" class="w-6 h-6 rounded-md object-cover border border-brand/50" aria-hidden="true">
+              <span class="text-xs font-bold text-white max-w-[110px] truncate hidden md:inline">${user.personaName}</span>
+              <span class="w-2 h-2 rounded-full bg-brand" aria-hidden="true"></span>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+            </a>
+            <div class="absolute right-0 mt-1 w-48 py-1.5 bg-surface border border-subtle rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <a href="account.html" class="flex items-center gap-2 px-3 py-2 text-xs text-white hover:bg-surface-hover hover:text-brand transition-colors">
+                <i class="fa-solid fa-user text-brand"></i> Мій кабінет & профіль
+              </a>
+              <a href="account.html#wishlist" class="flex items-center gap-2 px-3 py-2 text-xs text-white hover:bg-surface-hover hover:text-brand transition-colors">
+                <i class="fa-solid fa-heart text-brand"></i> Мій Wishlist
+              </a>
+              <button type="button" onclick="handleLogoutSite()" class="w-full text-left flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-surface-hover transition-colors border-t border-subtle/50">
+                <i class="fa-solid fa-right-from-bracket"></i> Вийти з акаунта
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button 
+            type="button" 
+            onclick="openSteamLoginModal()"
+            class="inline-flex items-center justify-center h-10 px-3 sm:px-4 text-xs sm:text-sm font-semibold text-white bg-surface hover:bg-surface-hover border border-brand/50 hover:border-brand hover:scale-105 active:scale-95 hover:shadow-glow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f12] rounded-lg transition-all duration-200 shadow-sm gap-2" 
+            aria-label="Увійти в акаунт через Steam OpenID"
+          >
+            <i class="fa-brands fa-steam text-brand text-sm sm:text-base" aria-hidden="true"></i>
+            <span>Увійти через Steam</span>
+          </button>
+        `;
+      }
+    }
+
+    // Керування модальним вікном авторизації
+    function openSteamLoginModal() {
+      const modal = document.getElementById('steam-login-modal');
+      if (modal && typeof modal.showModal === 'function') {
+        modal.showModal();
+      } else if (modal) {
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeSteamLoginModal() {
+      const modal = document.getElementById('steam-login-modal');
+      if (modal && typeof modal.close === 'function') {
+        modal.close();
+      } else if (modal) {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function loginAsDemoStub() {
+      LootRadar.auth.login();
+      closeSteamLoginModal();
+      syncAuthStateUI();
+      window.location.href = 'account.html';
+    }
+
+    function handleLogoutSite() {
+      LootRadar.auth.logout();
+      syncAuthStateUI();
+    }
+
+    function handleHeroSteamClick() {
+      if (LootRadar.auth.isLoggedIn()) {
+        window.location.href = 'account.html';
+      } else {
+        openSteamLoginModal();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      syncWishlistButtons();
+      syncAuthStateUI();
+
+      window.addEventListener('lootradar:wishlist_changed', syncWishlistButtons);
+      window.addEventListener('lootradar:auth_changed', syncAuthStateUI);
+    });
+
+    // Інтерактивне підняття Heat-Score спільноти
+    function incrementHeat(btn) {
+      const parent = btn.parentElement;
+      const scoreEl = parent.querySelector('span');
+      if (scoreEl) {
+        let currentText = scoreEl.textContent.trim();
+        let match = currentText.match(/\+(\d+)/);
+        if (match) {
+          let score = parseInt(match[1], 10) + 1;
+          scoreEl.innerHTML = '<i class="fa-solid fa-fire text-amber-400" aria-hidden="true"></i> +' + score + '°';
+          btn.classList.add('bg-brand', 'text-black');
+          btn.disabled = true;
+        }
+      }
+    }
+
+        // Обробка форми лідогенерації
+    const leadForm = document.getElementById('lead-capture-form');
+    if (leadForm) {
+      leadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const feedback = document.getElementById('lead-feedback-msg');
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          leadForm.reset();
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

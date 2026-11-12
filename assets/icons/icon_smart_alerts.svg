@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Top loop of the bell -->
+  <path d="M24 10C22.6 10 21.5 11.1 21.5 12.5V14H26.5V12.5C26.5 11.1 25.4 10 24 10Z" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="#12151B"/>
+  
+  <!-- Bell dome and flared rim -->
+  <path d="M24 14C19 14 16.5 18 16.5 24V29L14 32V33.5H34V32L31.5 29V24C31.5 18 29 14 24 14Z" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linejoin="round" fill="#12151B"/>
+  
+  <!-- Bell clapper at the bottom -->
+  <path d="M21.5 34C21.8 35.8 22.7 37 24 37C25.3 37 26.2 35.8 26.5 34" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round"/>
+  
+  <!-- Interior bright neon green lightning bolt -->
+  <path d="M24.5 18L21 24.5H24L23 29.5L27 23.5H24L24.5 18Z" fill="#00C853" stroke="#00C853" stroke-width="0.5" stroke-linejoin="round"/>
+  
+  <!-- Left and right neon green sound waves -->
+  <path d="M10 20C8.8 22 8.8 26 10 28" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+  <path d="M38 20C39.2 22 39.2 26 38 28" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+</svg>
