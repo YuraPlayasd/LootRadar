@@ -128,6 +128,11 @@
               </a>
             </li>
             <li>
+              <a href="#feedback" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
+                <span aria-hidden="true">💬</span> Зворотний зв'язок
+              </a>
+            </li>
+            <li>
               <a href="#faq" class="h-10 px-2.5 xl:px-3 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors inline-flex items-center gap-1">
                 <span aria-hidden="true">❓</span> FAQ
               </a>
@@ -236,6 +241,11 @@
           <li>
             <a href="#why-us" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
               <span aria-hidden="true">🛡️</span> Чому LootRadar
+            </a>
+          </li>
+          <li>
+            <a href="#feedback" onclick="document.getElementById('mobile-nav').classList.add('hidden');" class="min-h-[44px] px-3.5 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand flex items-center gap-2.5 transition-colors">
+              <span aria-hidden="true">💬</span> Форма зворотного зв'язку
             </a>
           </li>
           <li>
@@ -1116,56 +1126,225 @@
       </section>
 
       <!-- ====================================================================
-           СЕКЦІЯ 6: ФІНАЛЬНИЙ БАНЕР І ЛІДОГЕНЕРАЦІЯ (Final CTA Banner)
+           СЕКЦІЯ 6: ЗВОРОТНИЙ ЗВ'ЯЗОК ТА ПІДТРИМКА (Feedback & Validation Form)
+           Лабораторна робота № 9: Адаптивні форми зворотного зв'язку
            ==================================================================== -->
-      <section id="cta-banner" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="cta-banner-heading">
-        <div class="relative max-w-5xl mx-auto rounded-3xl bg-gradient-to-b from-[#1a1d24] to-[#12151b] border border-brand/40 p-8 sm:p-12 lg:p-14 text-center overflow-hidden shadow-glow-primary">
+      <section id="feedback" class="scroll-mt-24 py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-subtle" aria-labelledby="feedback-heading">
+        <div class="relative max-w-4xl mx-auto rounded-3xl bg-surface-elevated/95 border border-brand/40 p-6 sm:p-10 lg:p-12 shadow-glow-primary overflow-hidden">
           
-          <!-- Фонове підсвічування -->
-          <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-          <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+          <!-- Фонове неонове підсвічування -->
+          <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+          <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
-          <div class="relative z-10 max-w-2xl mx-auto">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/15 border border-brand/30 text-xs font-bold text-brand mb-4">
-              <i class="fa-solid fa-bell text-brand" aria-hidden="true"></i> Жодної пропущеної роздачі
+          <header class="relative z-10 text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/15 border border-brand/30 text-xs font-bold text-brand mb-3">
+              <i class="fa-solid fa-headset text-brand" aria-hidden="true"></i> Підтримка спільноти LootRadar
             </span>
-            
-            <h2 id="cta-banner-heading" class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-headings text-white leading-tight mb-4 tracking-tight">
-              Готовий купувати ігри за найчеснішими цінами?
+            <h2 id="feedback-heading" class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-headings text-white leading-tight mb-3 tracking-tight">
+              Форма зворотного зв'язку
             </h2>
-            
-            <p class="text-sm sm:text-base lg:text-lg text-muted leading-relaxed mb-8">
-              Приєднуйся до 12,000+ українських геймерів. Отримуй щотижневі дайджести, сповіщення про 100% безкоштовні роздачі та падіння цін до абсолютного історичного мінімуму.
+            <p class="text-xs sm:text-sm md:text-base text-muted leading-relaxed">
+              Маєте побажання щодо каталогу, зауваження, критику чи запитання щодо знижок? Залиште повідомлення — наша команда розгляне його та надішле відповідь на вказану електронну пошту.
             </p>
+          </header>
 
-            <!-- Доступна форма лідогенерації -->
-            <form id="lead-capture-form" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg mx-auto" aria-label="Підписка на миттєві алерти роздач">
-              <label for="cta-email" class="sr-only">Ваша електронна пошта для отримання сповіщень</label>
-              <input 
-                type="email" 
-                id="cta-email" 
-                name="email" 
-                required 
-                placeholder="Введіть ваш email для сповіщень..." 
-                autocomplete="email"
-                class="flex-1 min-h-[48px] px-4 py-3 bg-surface-dark text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand transition-all"
-              >
-              <button 
-                type="submit" 
-                class="min-h-[48px] px-7 py-3.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-105 active:scale-95 hover:shadow-glow-accent text-black font-extrabold text-sm sm:text-base rounded-xl whitespace-nowrap transition-all duration-200 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
-              >
-                Отримувати миттєві алерти
-              </button>
-            </form>
+          <!-- Семантична вебформа з клієнтською валідацією (novalidate для контролю JS) -->
+          <form id="feedbackForm" action="#" method="post" novalidate class="relative z-10 space-y-6" aria-label="Форма зворотного зв'язку та підтримки користувачів">
+            
+            <!-- Сітка 2 колонки на планшетах/десктопі (md:grid-cols-2), 1 колонка на мобільних -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+              
+              <!-- Поле 1: Ім'я користувача (Name) -->
+              <div class="flex flex-col">
+                <label for="username" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                  <span>Ім'я або нікнейм <span class="text-brand" aria-hidden="true">*</span></span>
+                  <span class="text-[11px] font-normal text-slate-400">мін. 2 символи</span>
+                </label>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    autocomplete="name" 
+                    placeholder="напр. Олександр або Nomad_UA" 
+                    aria-required="true" 
+                    aria-describedby="nameError" 
+                    class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all"
+                  >
+                </div>
+                <p id="nameError" class="hidden text-xs text-red-400 mt-1.5 flex items-center gap-1.5" role="alert">
+                  <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                  <span>Ім'я повинно містити не менше 2 символів.</span>
+                </p>
+              </div>
 
-            <div id="lead-feedback-msg" class="hidden mt-3 text-xs text-brand font-semibold" aria-live="polite">
-              <i class="fa-solid fa-check-circle mr-1" aria-hidden="true"></i> Дякуємо! Ви успішно підписалися на сповіщення про роздачі.
+              <!-- Поле 2: Електронна пошта (Email) -->
+              <div class="flex flex-col">
+                <label for="email" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                  <span>Електронна пошта <span class="text-brand" aria-hidden="true">*</span></span>
+                  <span class="text-[11px] font-normal text-slate-400">для відповіді</span>
+                </label>
+                <div class="relative">
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    inputmode="email" 
+                    autocomplete="email" 
+                    placeholder="gamer@example.com" 
+                    aria-required="true" 
+                    aria-describedby="emailError" 
+                    class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all"
+                  >
+                </div>
+                <p id="emailError" class="hidden text-xs text-red-400 mt-1.5 flex items-center gap-1.5" role="alert">
+                  <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                  <span>Введіть коректну електронну адресу (наприклад: user@mail.com).</span>
+                </p>
+              </div>
+
+              <!-- Поле 3: Номер телефону (Phone) -->
+              <div class="flex flex-col">
+                <label for="phone" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                  <span>Номер телефону <span class="text-brand" aria-hidden="true">*</span></span>
+                  <span class="text-[11px] font-normal text-slate-400">+380XXXXXXXXX</span>
+                </label>
+                <div class="relative">
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    required 
+                    inputmode="tel" 
+                    autocomplete="tel" 
+                    placeholder="+380XXXXXXXXX" 
+                    aria-required="true" 
+                    aria-describedby="phoneHelp phoneError" 
+                    class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all"
+                  >
+                </div>
+                <span id="phoneHelp" class="text-[11px] text-slate-400 mt-1">Український формат: код +380 та 9 цифр</span>
+                <p id="phoneError" class="hidden text-xs text-red-400 mt-1 flex items-center gap-1.5" role="alert">
+                  <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                  <span>Формат має бути строго українським: +380XXXXXXXXX.</span>
+                </p>
+              </div>
+
+              <!-- Поле 4: Профіль Steam (необов'язково) -->
+              <div class="flex flex-col">
+                <div class="flex items-center justify-between mb-2">
+                  <label for="steamProfile" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5">
+                    <i class="fa-brands fa-steam text-brand text-xs" aria-hidden="true"></i>
+                    <span>Steam ID / Профіль (необов'язково)</span>
+                  </label>
+                  <button 
+                    type="button" 
+                    id="prefillSteamBtn" 
+                    class="hidden text-[11px] text-brand hover:underline font-semibold"
+                  >
+                    Вставити мій нікнейм
+                  </button>
+                </div>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    id="steamProfile" 
+                    name="steamProfile" 
+                    placeholder="StalkerGhost_UA або 76561198..." 
+                    autocomplete="username" 
+                    aria-describedby="steamProfileHelp steamProfileError" 
+                    class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all"
+                  >
+                </div>
+                <span id="steamProfileHelp" class="text-[11px] text-slate-400 mt-1">Для прив'язки до вашого списку бажаного чи акаунта</span>
+                <p id="steamProfileError" class="hidden text-xs text-red-400 mt-1 flex items-center gap-1.5" role="alert">
+                  <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                  <span>Вкажіть коректний SteamID64 або нікнейм (мін. 3 символи).</span>
+                </p>
+              </div>
+
             </div>
 
-            <p class="text-xs text-slate-400 mt-4">
-              🔒 100% захист від спаму. Лише перевірені роздачі та історичні мінімуми. Відписка в один клік у будь-який момент.
-            </p>
-          </div>
+            <!-- Поле 5: Тип звернення (Topic) -->
+            <div class="flex flex-col">
+              <label for="topic" class="text-xs sm:text-sm font-semibold text-white mb-2">
+                Тема або категорія звернення
+              </label>
+              <select 
+                id="topic" 
+                name="topic" 
+                class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all cursor-pointer"
+              >
+                <option value="feedback">💡 Побажання щодо покращення функціоналу платформи</option>
+                <option value="criticism">⚖️ Конструктивна критика або зауваження до роботи сервісу</option>
+                <option value="question">❓ Питання щодо знижки, історичного мінімуму чи гри</option>
+                <option value="bug">🐛 Повідомити про неточність ціни або технічну помилку</option>
+              </select>
+            </div>
+
+            <!-- Поле 6: Текст повідомлення (Message) -->
+            <div class="flex flex-col">
+              <div class="flex items-center justify-between mb-2">
+                <label for="message" class="text-xs sm:text-sm font-semibold text-white">
+                  Текст повідомлення <span class="text-brand" aria-hidden="true">*</span>
+                </label>
+                <span id="messageCounter" class="text-[11px] text-slate-400">
+                  Введено символів: <span id="currentLength" class="text-slate-400 font-semibold">0</span> / мін. 10
+                </span>
+              </div>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                required 
+                placeholder="Опишіть ваше побажання, зауваження або запитання до команди LootRadar (мінімум 10 символів)..." 
+                aria-required="true" 
+                aria-describedby="messageCounter messageError" 
+                class="w-full px-4 py-3 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all resize-y"
+              ></textarea>
+              <p id="messageError" class="hidden text-xs text-red-400 mt-1.5 flex items-center gap-1.5" role="alert">
+                <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                <span>Повідомлення повинно містити не менше 10 символів.</span>
+              </p>
+            </div>
+
+            <!-- Поле 7: Чекбокс згоди з політикою конфіденційності (Agreement) -->
+            <div class="flex flex-col pt-1">
+              <div class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="agreement" 
+                  name="agreement" 
+                  required 
+                  aria-required="true" 
+                  aria-describedby="agreementError" 
+                  class="mt-1 w-4 h-4 rounded text-brand bg-surface border-subtle focus:ring-brand focus:ring-offset-surface-dark cursor-pointer accent-[#00c853]"
+                >
+                <label for="agreement" class="text-xs sm:text-sm text-slate-300 select-none cursor-pointer leading-relaxed">
+                  Я погоджуюся на обробку персональних даних згідно з <a href="#faq" class="text-brand hover:underline font-semibold">Політикою конфіденційності</a> та даю згоду на отримання відповіді на вказану електронну пошту <span class="text-brand" aria-hidden="true">*</span>
+                </label>
+              </div>
+              <p id="agreementError" class="hidden text-xs text-red-400 mt-1.5 pl-7 flex items-center gap-1.5" role="alert">
+                <i class="fa-solid fa-circle-exclamation text-xs shrink-0" aria-hidden="true"></i>
+                <span>Необхідно підтвердити згоду для відправлення повідомлення.</span>
+              </p>
+            </div>
+
+            <!-- Кнопка сабміту (Submit Button) -->
+            <div class="pt-2">
+              <button 
+                type="submit" 
+                id="submitFeedbackBtn" 
+                class="w-full sm:w-auto min-h-[48px] px-8 py-3.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-accent text-black font-extrabold text-sm sm:text-base rounded-xl transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
+              >
+                <i class="fa-solid fa-paper-plane text-xs sm:text-sm" aria-hidden="true"></i>
+                <span>Надіслати повідомлення</span>
+              </button>
+            </div>
+
+          </form>
 
         </div>
       </section>
@@ -1235,6 +1414,9 @@
               </li>
               <li>
                 <a href="account.html#wishlist" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Мій Steam Wishlist</a>
+              </li>
+              <li>
+                <a href="#feedback" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Форма зворотного зв'язку</a>
               </li>
               <li>
                 <a href="#why-us" class="hover:text-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand rounded transition-colors min-h-[44px] inline-flex items-center">Чому ми (Steam API трекінг)</a>
@@ -1387,6 +1569,56 @@
       </div>
     </div>
   </dialog>
+
+  <!-- ======================================================================
+       МОДАЛЬНЕ ВІКНО УСПІШНОЇ ВАЛІДАЦІЇ ТА НАДСИЛАННЯ (Етап 11 Лаб 9)
+       ====================================================================== -->
+  <div 
+    id="successModal" 
+    class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-300" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="successModalTitle" 
+    aria-describedby="successModalDesc"
+  >
+    <div class="relative w-full max-w-md p-6 sm:p-8 bg-surface-elevated border border-brand/40 rounded-2xl shadow-glow-primary text-center">
+      
+      <!-- Кнопка закриття у кутку -->
+      <button 
+        type="button" 
+        id="closeSuccessModalBtn" 
+        class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-lg hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors" 
+        aria-label="Закрити модальне вікно"
+      >
+        <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
+      </button>
+
+      <!-- Іконка успіху -->
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-brand/15 border border-brand/40 flex items-center justify-center text-brand text-2xl shadow-glow-accent">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+      </div>
+
+      <!-- Заголовок -->
+      <h3 id="successModalTitle" class="text-xl sm:text-2xl font-bold font-headings text-white mb-2">
+        Повідомлення перевірено!
+      </h3>
+
+      <!-- Опис / Демо-статус згідно Етапів 11 та 19 -->
+      <p id="successModalDesc" class="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
+        Дякуємо! Форма успішно пройшла комплексну клієнтську валідацію. Вхідні дані підтверджено, а звернення збережено в локальному сховищі сесії. Ми зв'яжемося з вами за вказаною електронною поштою.
+      </p>
+
+      <!-- Кнопка дії -->
+      <button 
+        type="button" 
+        id="modalOkBtn" 
+        class="w-full min-h-[46px] px-6 py-2.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] text-black font-extrabold text-sm rounded-xl transition-all shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
+      >
+        Зрозуміло
+      </button>
+
+    </div>
+  </div>
 
 
 
@@ -1776,20 +2008,10 @@
       window.addEventListener('lootradar:wishlist_changed', syncWishlistButtons);
       window.addEventListener('lootradar:auth_changed', syncAuthStateUI);
     });
-
-    // Обробка форми лідогенерації
-    const leadForm = document.getElementById('lead-capture-form');
-    if (leadForm) {
-      leadForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const feedback = document.getElementById('lead-feedback-msg');
-        if (feedback) {
-          feedback.classList.remove('hidden');
-          leadForm.reset();
-        }
-      });
-    }
   </script>
+
+  <!-- Скрипт валідації адаптивної форми зворотного зв'язку (Лабораторна робота № 9) -->
+  <script src="assets/js/validation.js" defer></script>
 
 </body>
 </html>
