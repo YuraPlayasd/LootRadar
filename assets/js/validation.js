@@ -61,63 +61,87 @@
   const touchedFields = new Set();
 
   // ==========================================================================
-  // 3. Допоміжні UI-функції відображення станів (Default / Invalid / Valid)
+  // 3. Допоміжні UI-функції відображення станів (Normal / Hover / Focus / Error / Success)
   // ==========================================================================
+
+  const FIELD_STATE_CLASSES = {
+    neutral: ['border-subtle', 'hover:border-slate-400', 'focus:border-sky-400', 'focus:ring-2', 'focus:ring-sky-400/35'],
+    error: ['border-red-500', 'hover:border-red-400', 'ring-1', 'ring-red-500/25', 'focus:border-red-500', 'focus:ring-2', 'focus:ring-red-500/35'],
+    success: ['border-green-500', 'hover:border-green-400', 'ring-1', 'ring-green-500/25', 'focus:border-sky-400', 'focus:ring-2', 'focus:ring-sky-400/35']
+  };
+
+  const ALL_STATE_CLASSES = Array.from(new Set([
+    ...FIELD_STATE_CLASSES.neutral,
+    ...FIELD_STATE_CLASSES.error,
+    ...FIELD_STATE_CLASSES.success
+  ]));
+
+  function setFieldStatusIcon(inputElement, state) {
+    const statusBox = inputElement.parentElement
+      ? inputElement.parentElement.querySelector('[data-status-icon]')
+      : null;
+    if (!statusBox) return;
+
+    if (state === 'neutral') {
+      statusBox.classList.remove('flex');
+      statusBox.classList.add('hidden');
+      statusBox.replaceChildren();
+      return;
+    }
+
+    const icon = document.createElement('i');
+    icon.className = state === 'success'
+      ? 'fa-solid fa-circle-check text-green-400'
+      : 'fa-solid fa-circle-exclamation text-red-400';
+    statusBox.replaceChildren(icon);
+    statusBox.classList.remove('hidden');
+    statusBox.classList.add('flex');
+  }
+
+  function applyFieldVisualState(inputElement, errorElement, state, message) {
+    if (!inputElement || !errorElement) return;
+
+    inputElement.classList.remove(...ALL_STATE_CLASSES);
+    inputElement.classList.add(...FIELD_STATE_CLASSES[state]);
+    setFieldStatusIcon(inputElement, state);
+
+    if (state === 'error') {
+      inputElement.setAttribute('aria-invalid', 'true');
+      const msgSpan = errorElement.querySelector('span');
+      if (msgSpan) msgSpan.textContent = message;
+      else errorElement.textContent = message;
+      errorElement.classList.remove('hidden');
+      errorElement.classList.add('flex');
+    } else if (state === 'success') {
+      inputElement.setAttribute('aria-invalid', 'false');
+      errorElement.classList.remove('flex');
+      errorElement.classList.add('hidden');
+    } else {
+      inputElement.removeAttribute('aria-invalid');
+      errorElement.classList.remove('flex');
+      errorElement.classList.add('hidden');
+    }
+  }
 
   /**
    * Відображення стану помилки (Invalid state)
    */
   function showErr(inputElement, errorElement, message) {
-    if (!inputElement || !errorElement) return;
-
-    // Оновлення Tailwind-класів рамки: видаляємо зелені/нейтральні, додаємо червоні
-    inputElement.classList.remove('border-brand', 'border-green-500', 'border-subtle', 'focus:border-brand', 'focus:ring-brand/40');
-    inputElement.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/30');
-
-    // Налаштування доступності (a11y)
-    inputElement.setAttribute('aria-invalid', 'true');
-
-    // Текст помилки та видимість
-    const msgSpan = errorElement.querySelector('span');
-    if (msgSpan) {
-      msgSpan.textContent = message;
-    } else {
-      errorElement.textContent = message;
-    }
-    errorElement.classList.remove('hidden');
-    errorElement.classList.add('flex');
+    applyFieldVisualState(inputElement, errorElement, 'error', message);
   }
 
   /**
    * Відображення стану успіху (Valid state)
    */
   function showSuccess(inputElement, errorElement) {
-    if (!inputElement || !errorElement) return;
-
-    // Оновлення Tailwind-класів рамки: встановлюємо зелений колір успішного стану
-    inputElement.classList.remove('border-red-500', 'border-subtle', 'focus:border-red-500', 'focus:ring-red-500/30');
-    inputElement.classList.add('border-green-500', 'focus:border-brand', 'focus:ring-brand/40');
-
-    // Налаштування доступності (a11y)
-    inputElement.setAttribute('aria-invalid', 'false');
-
-    // Приховуємо повідомлення про помилку
-    errorElement.classList.remove('flex');
-    errorElement.classList.add('hidden');
+    applyFieldVisualState(inputElement, errorElement, 'success');
   }
 
   /**
    * Скидання поля до початкового нейтрального стану (Neutral state)
    */
   function clearErr(inputElement, errorElement) {
-    if (!inputElement || !errorElement) return;
-
-    inputElement.classList.remove('border-red-500', 'border-brand', 'border-green-500', 'focus:border-red-500', 'focus:ring-red-500/30');
-    inputElement.classList.add('border-subtle', 'focus:border-brand', 'focus:ring-brand/40');
-
-    inputElement.removeAttribute('aria-invalid');
-    errorElement.classList.remove('flex');
-    errorElement.classList.add('hidden');
+    applyFieldVisualState(inputElement, errorElement, 'neutral');
   }
 
   /**
