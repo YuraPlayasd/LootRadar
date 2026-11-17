@@ -45,6 +45,12 @@
   let currentLengthSpan = null;
   let agreementCheckbox = null;
   let agreementError = null;
+  let submitWrapper = null;
+  let submitBtn = null;
+  let submitBtnIcon = null;
+  let submitStatusText = null;
+  let submitStatusIcon = null;
+  let submitStatusLabel = null;
   let successModal = null;
   let closeModalBtn = null;
   let modalOkBtn = null;
@@ -130,35 +136,93 @@
   }
 
   // ==========================================================================
-  // 4. Окремі функції валідації для кожного поля
+  // 4. Чисті перевірки правил та функції валідації для кожного поля
   // ==========================================================================
+
+  function checkNameValue(raw) {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return { valid: false, message: "Будь ласка, вкажіть ваше ім'я або нікнейм." };
+    }
+    if (value.length < 2) {
+      return { valid: false, message: "Ім'я або нікнейм повинен містити не менше 2 символів." };
+    }
+    if (value.length > 50) {
+      return { valid: false, message: "Ім'я або нікнейм не повинен перевищувати 50 символів." };
+    }
+    if (!REGEX_NAME.test(value) || !REGEX_NAME_HAS_WORD.test(value)) {
+      return { valid: false, message: "Дозволені лише літери, цифри, пробіли, дефіси, апострофи та підкреслення (_)." };
+    }
+    return { valid: true };
+  }
+
+  function checkEmailValue(raw) {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return { valid: false, message: "Електронна пошта є обов'язковою для отримання відповіді." };
+    }
+    if (!REGEX_EMAIL.test(value)) {
+      return { valid: false, message: "Введіть коректну електронну адресу (наприклад: user@mail.com)." };
+    }
+    return { valid: true };
+  }
+
+  function checkPhoneValue(raw) {
+    let normalized = raw.trim();
+    if (normalized.length === 0) {
+      return { valid: false, message: "Введіть номер телефону для верифікації запиту." };
+    }
+
+    const stripped = normalized.replace(/[\s\-\(\)]/g, '');
+    // Edge Case: безпечна автонормалізація 0XXXXXXXXX -> +380XXXXXXXXX
+    if (/^0\d{9}$/.test(stripped)) {
+      normalized = '+38' + stripped;
+    } else if (stripped !== normalized && /^\+380\d{9}$/.test(stripped)) {
+      normalized = stripped;
+    }
+
+    if (!REGEX_PHONE.test(normalized)) {
+      return { valid: false, message: "Формат має бути строго українським: +380XXXXXXXXX (рівно 9 цифр після коду)." };
+    }
+    return { valid: true, normalizedValue: normalized };
+  }
+
+  function checkSteamValue(raw) {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return { valid: true, isEmpty: true };
+    }
+    if (value.length < 3 || !REGEX_STEAM.test(value)) {
+      return { valid: false, isEmpty: false, message: "Вкажіть коректний SteamID64 або Custom URL (від 3 символів без пробілів)." };
+    }
+    return { valid: true, isEmpty: false };
+  }
+
+  function checkMessageValue(raw) {
+    const value = raw.trim();
+    if (value.length === 0) {
+      return { valid: false, length: 0, message: "Будь ласка, введіть текст вашого звернення." };
+    }
+    if (value.length < 10) {
+      return { valid: false, length: value.length, message: `Повідомлення занадто коротке (зараз ${value.length} з 10 мінімальних символів).` };
+    }
+    return { valid: true, length: value.length };
+  }
+
+  function checkAgreementValue() {
+    return { valid: Boolean(agreementCheckbox && agreementCheckbox.checked) };
+  }
 
   /**
    * Валідація поля імені (Username / Full Name)
    */
   function validateName() {
     if (!nameInput) return true;
-    const value = nameInput.value.trim();
-
-    // Граничний випадок: порожнє поле, менше 2 або більше 50 символів
-    if (value.length === 0) {
-      showErr(nameInput, nameError, "Будь ласка, вкажіть ваше ім'я або нікнейм.");
+    const res = checkNameValue(nameInput.value);
+    if (!res.valid) {
+      showErr(nameInput, nameError, res.message);
       return false;
     }
-    if (value.length < 2) {
-      showErr(nameInput, nameError, "Ім'я або нікнейм повинен містити не менше 2 символів.");
-      return false;
-    }
-    if (value.length > 50) {
-      showErr(nameInput, nameError, "Ім'я або нікнейм не повинен перевищувати 50 символів.");
-      return false;
-    }
-    // Граничний випадок: наявність недопустимих спецсимволів або відсутність літер/цифр
-    if (!REGEX_NAME.test(value) || !REGEX_NAME_HAS_WORD.test(value)) {
-      showErr(nameInput, nameError, "Дозволені лише літери, цифри, пробіли, дефіси, апострофи та підкреслення (_).");
-      return false;
-    }
-
     showSuccess(nameInput, nameError);
     return true;
   }
@@ -168,18 +232,11 @@
    */
   function validateEmail() {
     if (!emailInput) return true;
-    const value = emailInput.value.trim();
-
-    if (value.length === 0) {
-      showErr(emailInput, emailError, "Електронна пошта є обов'язковою для отримання відповіді.");
+    const res = checkEmailValue(emailInput.value);
+    if (!res.valid) {
+      showErr(emailInput, emailError, res.message);
       return false;
     }
-    // Перевірка формату регулярним виразом
-    if (!REGEX_EMAIL.test(value)) {
-      showErr(emailInput, emailError, "Введіть коректну електронну адресу (наприклад: user@mail.com).");
-      return false;
-    }
-
     showSuccess(emailInput, emailError);
     return true;
   }
@@ -189,33 +246,14 @@
    */
   function validatePhone() {
     if (!phoneInput) return true;
-    let rawValue = phoneInput.value.trim();
-
-    if (rawValue.length === 0) {
-      showErr(phoneInput, phoneError, "Введіть номер телефону для верифікації запиту.");
+    const res = checkPhoneValue(phoneInput.value);
+    if (!res.valid) {
+      showErr(phoneInput, phoneError, res.message);
       return false;
     }
-
-    // Edge Case: якщо користувач почав вводити з 0 (наприклад, 0501234567)
-    // Безпечна автонормалізація: автоматично додаємо префікс +38
-    if (/^0\d{9}$/.test(rawValue.replace(/[\s\-\(\)]/g, ''))) {
-      rawValue = '+38' + rawValue.replace(/[\s\-\(\)]/g, '');
-      phoneInput.value = rawValue;
+    if (res.normalizedValue && res.normalizedValue !== phoneInput.value) {
+      phoneInput.value = res.normalizedValue;
     }
-
-    // Edge Case: очищення випадкових пробілів, дужок або дефісів при копіюванні
-    const sanitized = rawValue.replace(/[\s\-\(\)]/g, '');
-    if (sanitized !== rawValue && /^\+380\d{9}$/.test(sanitized)) {
-      phoneInput.value = sanitized;
-      rawValue = sanitized;
-    }
-
-    // Перевірка строго за правилом +380XXXXXXXXX
-    if (!REGEX_PHONE.test(rawValue)) {
-      showErr(phoneInput, phoneError, "Формат має бути строго українським: +380XXXXXXXXX (рівно 9 цифр після коду).");
-      return false;
-    }
-
     showSuccess(phoneInput, phoneError);
     return true;
   }
@@ -225,20 +263,15 @@
    */
   function validateSteam() {
     if (!steamInput) return true;
-    const value = steamInput.value.trim();
-
-    // Поле опційне — якщо порожнє, це валідний стан
-    if (value.length === 0) {
+    const res = checkSteamValue(steamInput.value);
+    if (res.isEmpty) {
       clearErr(steamInput, steamError);
       return true;
     }
-
-    // Якщо заповнено — перевіряємо формат нікнейму чи SteamID
-    if (value.length < 3 || !REGEX_STEAM.test(value)) {
-      showErr(steamInput, steamError, "Вкажіть коректний SteamID64 або Custom URL (від 3 символів без пробілів).");
+    if (!res.valid) {
+      showErr(steamInput, steamError, res.message);
       return false;
     }
-
     showSuccess(steamInput, steamError);
     return true;
   }
@@ -248,19 +281,12 @@
    */
   function validateMessage() {
     if (!messageInput) return true;
-    const value = messageInput.value.trim();
-
-    updateMessageCounter(value.length);
-
-    if (value.length === 0) {
-      showErr(messageInput, messageError, "Будь ласка, введіть текст вашого звернення.");
+    const res = checkMessageValue(messageInput.value);
+    updateMessageCounter(res.length);
+    if (!res.valid) {
+      showErr(messageInput, messageError, res.message);
       return false;
     }
-    if (value.length < 10) {
-      showErr(messageInput, messageError, `Повідомлення занадто коротке (зараз ${value.length} з 10 мінімальних символів).`);
-      return false;
-    }
-
     showSuccess(messageInput, messageError);
     return true;
   }
@@ -271,7 +297,7 @@
   function validateAgreement() {
     if (!agreementCheckbox) return true;
 
-    if (!agreementCheckbox.checked) {
+    if (!checkAgreementValue().valid) {
       if (agreementError) {
         agreementError.classList.remove('hidden');
         agreementError.classList.add('flex');
@@ -288,6 +314,83 @@
     agreementCheckbox.classList.remove('ring-2', 'ring-red-500');
     agreementCheckbox.setAttribute('aria-invalid', 'false');
     return true;
+  }
+
+  /**
+   * Тиха перевірка стану всіх полів для керування кнопкою «Надіслати повідомлення»
+   */
+  function updateSubmitButtonState() {
+    if (!submitBtn) return;
+
+    const requiredInvalid = [
+      nameInput ? checkNameValue(nameInput.value).valid : true,
+      emailInput ? checkEmailValue(emailInput.value).valid : true,
+      phoneInput ? checkPhoneValue(phoneInput.value).valid : true,
+      messageInput ? checkMessageValue(messageInput.value).valid : true,
+      agreementCheckbox ? checkAgreementValue().valid : true
+    ].filter(valid => !valid).length;
+
+    const steamValid = steamInput ? checkSteamValue(steamInput.value).valid : true;
+    const ready = requiredInvalid === 0 && steamValid;
+
+    submitBtn.disabled = !ready;
+    submitBtn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+
+    if (submitWrapper) {
+      submitWrapper.classList.toggle('cursor-not-allowed', !ready);
+    }
+
+    if (submitBtnIcon) {
+      submitBtnIcon.className = ready
+        ? 'fa-solid fa-paper-plane text-xs sm:text-sm'
+        : 'fa-solid fa-lock text-xs sm:text-sm';
+    }
+
+    if (submitStatusText && submitStatusIcon && submitStatusLabel) {
+      if (ready) {
+        submitStatusText.classList.remove('text-amber-400', 'text-red-400');
+        submitStatusText.classList.add('text-brand');
+        submitStatusIcon.className = 'fa-solid fa-circle-check shrink-0';
+        submitStatusLabel.textContent = 'Усі поля заповнено коректно — можна надсилати';
+      } else {
+        submitStatusText.classList.remove('text-brand', 'text-red-400');
+        submitStatusText.classList.add('text-amber-400');
+        submitStatusIcon.className = 'fa-solid fa-circle-exclamation shrink-0';
+        submitStatusLabel.textContent = requiredInvalid > 0
+          ? `Заповніть усі обов'язкові поля (залишилось: ${requiredInvalid})`
+          : 'Виправте некоректне значення Steam ID';
+      }
+    }
+  }
+
+  /**
+   * Запускає повну перевірку полів, фокусує перше невалідне та повертає true якщо форма валідна
+   */
+  function validateAllFieldsAndFocus() {
+    touchedFields.add('username');
+    touchedFields.add('email');
+    touchedFields.add('phone');
+    touchedFields.add('message');
+
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isPhoneValid = validatePhone();
+    const isSteamValid = validateSteam();
+    const isMessageValid = validateMessage();
+    const isAgreementValid = validateAgreement();
+
+    updateSubmitButtonState();
+
+    const allValid = isNameValid && isEmailValid && isPhoneValid && isSteamValid && isMessageValid && isAgreementValid;
+    if (!allValid) {
+      if (!isNameValid && nameInput) nameInput.focus();
+      else if (!isEmailValid && emailInput) emailInput.focus();
+      else if (!isPhoneValid && phoneInput) phoneInput.focus();
+      else if (!isSteamValid && steamInput) steamInput.focus();
+      else if (!isMessageValid && messageInput) messageInput.focus();
+      else if (!isAgreementValid && agreementCheckbox) agreementCheckbox.focus();
+    }
+    return allValid;
   }
 
   // ==========================================================================
@@ -372,6 +475,12 @@
     currentLengthSpan = document.getElementById('currentLength');
     agreementCheckbox = document.getElementById('agreement');
     agreementError = document.getElementById('agreementError');
+    submitWrapper = document.getElementById('submitWrapper');
+    submitBtn = document.getElementById('submitFeedbackBtn');
+    submitBtnIcon = document.getElementById('submitBtnIcon');
+    submitStatusText = document.getElementById('submitStatusText');
+    submitStatusIcon = document.getElementById('submitStatusIcon');
+    submitStatusLabel = document.getElementById('submitStatusLabel');
     successModal = document.getElementById('successModal');
     closeModalBtn = document.getElementById('closeSuccessModalBtn');
     modalOkBtn = document.getElementById('modalOkBtn');
@@ -392,75 +501,81 @@
             touchedFields.add('username');
             validateName();
           }
+          updateSubmitButtonState();
         });
       }
     }
 
-    // --- Динамічна валідація на подіях blur (вивантаження фокусу) та input (введення) ---
+    // --- Динамічна валідація та реакція на нативне автозаповнення браузера ---
+    function bindFieldListeners(input, fieldKey, validator, onInputExtra) {
+      if (!input) return;
 
-    // Ім'я
-    if (nameInput) {
-      nameInput.addEventListener('blur', () => {
-        touchedFields.add('username');
-        validateName();
+      input.addEventListener('blur', () => {
+        touchedFields.add(fieldKey);
+        validator();
+        updateSubmitButtonState();
       });
-      nameInput.addEventListener('input', () => {
-        if (touchedFields.has('username')) validateName();
+
+      input.addEventListener('input', () => {
+        if (onInputExtra) onInputExtra();
+        if (touchedFields.has(fieldKey)) validator();
+        updateSubmitButtonState();
+      });
+
+      input.addEventListener('change', () => {
+        if (input.value.trim().length > 0 || touchedFields.has(fieldKey)) {
+          touchedFields.add(fieldKey);
+          validator();
+        }
+        updateSubmitButtonState();
+      });
+
+      input.addEventListener('animationstart', (e) => {
+        if (e.animationName === 'onAutoFillStart' && input.value.trim().length > 0) {
+          touchedFields.add(fieldKey);
+          validator();
+          updateSubmitButtonState();
+        }
       });
     }
 
-    // Email
-    if (emailInput) {
-      emailInput.addEventListener('blur', () => {
-        touchedFields.add('email');
-        validateEmail();
-      });
-      emailInput.addEventListener('input', () => {
-        if (touchedFields.has('email')) validateEmail();
-      });
-    }
+    bindFieldListeners(nameInput, 'username', validateName);
+    bindFieldListeners(emailInput, 'email', validateEmail);
+    bindFieldListeners(phoneInput, 'phone', validatePhone);
+    bindFieldListeners(steamInput, 'steamProfile', validateSteam);
 
-    // Телефон
-    if (phoneInput) {
-      phoneInput.addEventListener('blur', () => {
-        touchedFields.add('phone');
-        validatePhone();
-      });
-      phoneInput.addEventListener('input', () => {
-        if (touchedFields.has('phone')) validatePhone();
-      });
-    }
-
-    // Steam-профіль (опційне)
-    if (steamInput) {
-      steamInput.addEventListener('blur', () => {
-        if (steamInput.value.trim()) validateSteam();
-      });
-      steamInput.addEventListener('input', () => {
-        if (steamInput.value.trim()) validateSteam();
-        else clearErr(steamInput, steamError);
-      });
-    }
-
-    // Повідомлення
-    if (messageInput) {
-      messageInput.addEventListener('blur', () => {
-        touchedFields.add('message');
-        validateMessage();
-      });
-      messageInput.addEventListener('input', () => {
-        // Лічильник і його колір оновлюються завжди при введенні
-        updateMessageCounter(messageInput.value.trim().length);
-        if (touchedFields.has('message')) validateMessage();
-      });
-    }
+    bindFieldListeners(messageInput, 'message', validateMessage, () => {
+      updateMessageCounter(messageInput.value.trim().length);
+    });
 
     // Чекбокс
     if (agreementCheckbox) {
       agreementCheckbox.addEventListener('change', () => {
         validateAgreement();
+        updateSubmitButtonState();
       });
     }
+
+    // Клік по заблокованій зоні кнопки показує відсутні поля та акцентує індикатор
+    if (submitWrapper && submitBtn) {
+      submitWrapper.addEventListener('click', () => {
+        if (!submitBtn.disabled) return;
+        validateAllFieldsAndFocus();
+        if (submitStatusText) {
+          submitStatusText.classList.remove('text-amber-400');
+          submitStatusText.classList.add('text-red-400');
+          setTimeout(() => {
+            if (submitBtn.disabled && submitStatusText) {
+              submitStatusText.classList.remove('text-red-400');
+              submitStatusText.classList.add('text-amber-400');
+            }
+          }, 1200);
+        }
+      });
+    }
+
+    // Початкове блокування кнопки до повного заповнення форми
+    updateSubmitButtonState();
 
     // --- Обробка Submit форми ---
     form.addEventListener('submit', function (e) {
@@ -469,30 +584,7 @@
       // Захист від подвійного submit, поки модальне вікно вже відкрите
       if (isModalOpen()) return;
 
-      // Позначаємо всі поля як опрацьовані
-      touchedFields.add('username');
-      touchedFields.add('email');
-      touchedFields.add('phone');
-      touchedFields.add('message');
-
-      // Тотальна перевірка кожного поля
-      const isNameValid = validateName();
-      const isEmailValid = validateEmail();
-      const isPhoneValid = validatePhone();
-      const isSteamValid = validateSteam();
-      const isMessageValid = validateMessage();
-      const isAgreementValid = validateAgreement();
-
-      const allValid = isNameValid && isEmailValid && isPhoneValid && isSteamValid && isMessageValid && isAgreementValid;
-
-      if (!allValid) {
-        // Фокусуємо перше невалідне поле для зручності та a11y
-        if (!isNameValid && nameInput) nameInput.focus();
-        else if (!isEmailValid && emailInput) emailInput.focus();
-        else if (!isPhoneValid && phoneInput) phoneInput.focus();
-        else if (!isSteamValid && steamInput) steamInput.focus();
-        else if (!isMessageValid && messageInput) messageInput.focus();
-        else if (!isAgreementValid && agreementCheckbox) agreementCheckbox.focus();
+      if (!validateAllFieldsAndFocus()) {
         return;
       }
 
@@ -515,6 +607,7 @@
 
       updateMessageCounter(0);
       touchedFields.clear();
+      updateSubmitButtonState();
 
       // 2. Показуємо доступне модальне вікно успіху
       openSuccessModal();

@@ -1149,14 +1149,14 @@
           </header>
 
           <!-- Семантична вебформа з клієнтською валідацією (novalidate для контролю JS) -->
-          <form id="feedbackForm" action="#" method="post" novalidate class="relative z-10 space-y-6" aria-label="Форма зворотного зв'язку та підтримки користувачів">
+          <form id="feedbackForm" action="#" method="post" autocomplete="on" novalidate class="relative z-10 space-y-6" aria-label="Форма зворотного зв'язку та підтримки користувачів">
             
             <!-- Сітка 2 колонки на планшетах/десктопі (md:grid-cols-2), 1 колонка на мобільних -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
               
               <!-- Поле 1: Ім'я користувача (Name) -->
               <div class="flex flex-col">
-                <label for="username" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                <label for="username" class="text-xs sm:text-sm font-semibold text-white mb-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
                   <span>Ім'я або нікнейм <span class="text-brand" aria-hidden="true">*</span></span>
                   <span class="text-[11px] font-normal text-slate-400">мін. 2 символи</span>
                 </label>
@@ -1181,7 +1181,7 @@
 
               <!-- Поле 2: Електронна пошта (Email) -->
               <div class="flex flex-col">
-                <label for="email" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                <label for="email" class="text-xs sm:text-sm font-semibold text-white mb-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
                   <span>Електронна пошта <span class="text-brand" aria-hidden="true">*</span></span>
                   <span class="text-[11px] font-normal text-slate-400">для відповіді</span>
                 </label>
@@ -1207,7 +1207,7 @@
 
               <!-- Поле 3: Номер телефону (Phone) -->
               <div class="flex flex-col">
-                <label for="phone" class="text-xs sm:text-sm font-semibold text-white mb-2 flex items-center justify-between">
+                <label for="phone" class="text-xs sm:text-sm font-semibold text-white mb-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
                   <span>Номер телефону <span class="text-brand" aria-hidden="true">*</span></span>
                   <span class="text-[11px] font-normal text-slate-400">+380XXXXXXXXX</span>
                 </label>
@@ -1234,7 +1234,7 @@
 
               <!-- Поле 4: Профіль Steam (необов'язково) -->
               <div class="flex flex-col">
-                <div class="flex items-center justify-between mb-2">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-2">
                   <label for="steamProfile" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5">
                     <i class="fa-brands fa-steam text-brand text-xs" aria-hidden="true"></i>
                     <span>Steam ID / Профіль (необов'язково)</span>
@@ -1253,7 +1253,7 @@
                     id="steamProfile" 
                     name="steamProfile" 
                     placeholder="StalkerGhost_UA або 76561198..." 
-                    autocomplete="off" 
+                    autocomplete="nickname" 
                     aria-describedby="steamProfileHelp steamProfileError" 
                     class="w-full min-h-[46px] px-4 py-2.5 bg-surface text-white text-sm placeholder-slate-400 rounded-xl border border-subtle focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/40 transition-all"
                   >
@@ -1286,7 +1286,7 @@
 
             <!-- Поле 6: Текст повідомлення (Message) -->
             <div class="flex flex-col">
-              <div class="flex items-center justify-between mb-2">
+              <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 mb-2">
                 <label for="message" class="text-xs sm:text-sm font-semibold text-white">
                   Текст повідомлення <span class="text-brand" aria-hidden="true">*</span>
                 </label>
@@ -1332,16 +1332,25 @@
               </p>
             </div>
 
-            <!-- Кнопка сабміту (Submit Button) -->
-            <div class="pt-2">
-              <button 
-                type="submit" 
-                id="submitFeedbackBtn" 
-                class="w-full sm:w-auto min-h-[48px] px-8 py-3.5 bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-accent text-black font-extrabold text-sm sm:text-base rounded-xl transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b]"
-              >
-                <i class="fa-solid fa-paper-plane text-xs sm:text-sm" aria-hidden="true"></i>
-                <span>Надіслати повідомлення</span>
-              </button>
+            <!-- Кнопка сабміту та візуальний індикатор готовності форми -->
+            <div class="pt-2 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-4">
+              <div id="submitWrapper" class="w-full sm:w-auto shrink-0 cursor-not-allowed">
+                <button 
+                  type="submit" 
+                  id="submitFeedbackBtn" 
+                  disabled
+                  aria-disabled="true"
+                  aria-describedby="submitStatusText"
+                  class="w-full sm:w-auto min-h-[48px] px-8 py-3.5 whitespace-nowrap bg-brand hover:bg-brand-hover active:bg-brand-active hover:scale-[1.02] active:scale-[0.98] hover:shadow-glow-accent text-black font-extrabold text-sm sm:text-base rounded-xl transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[#12151b] disabled:pointer-events-none disabled:bg-slate-800 disabled:text-slate-400 disabled:border disabled:border-subtle disabled:shadow-none disabled:hover:scale-100 disabled:opacity-80"
+                >
+                  <i id="submitBtnIcon" class="fa-solid fa-lock text-xs sm:text-sm" aria-hidden="true"></i>
+                  <span>Надіслати повідомлення</span>
+                </button>
+              </div>
+              <p id="submitStatusText" class="text-xs text-amber-400 flex items-center gap-2 font-medium" aria-live="polite">
+                <i id="submitStatusIcon" class="fa-solid fa-circle-exclamation shrink-0" aria-hidden="true"></i>
+                <span id="submitStatusLabel">Заповніть усі обов'язкові поля (залишилось: 5)</span>
+              </p>
             </div>
 
           </form>
@@ -1575,19 +1584,19 @@
        ====================================================================== -->
   <div 
     id="successModal" 
-    class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-300" 
+    class="fixed inset-0 z-[110] hidden items-center justify-center p-4 overflow-y-auto bg-black/80 backdrop-blur-sm transition-opacity duration-300" 
     role="dialog" 
     aria-modal="true" 
     aria-labelledby="successModalTitle" 
     aria-describedby="successModalDesc"
   >
-    <div class="relative w-full max-w-md p-6 sm:p-8 bg-surface-elevated border border-brand/40 rounded-2xl shadow-glow-primary text-center">
+    <div class="relative w-full max-w-md my-auto p-6 sm:p-8 bg-surface-elevated border border-brand/40 rounded-2xl shadow-glow-primary text-center">
       
       <!-- Кнопка закриття у кутку -->
       <button 
         type="button" 
         id="closeSuccessModalBtn" 
-        class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-lg hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors" 
+        class="absolute top-3 right-3 w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white rounded-lg hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors" 
         aria-label="Закрити модальне вікно"
       >
         <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
